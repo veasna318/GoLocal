@@ -311,6 +311,8 @@ const TEXT = {
     'apply.pleaseFix': 'An administrator needs more information before approving your account.',
     'apply.adminNote': 'Note from the administrator:',
 
+    'dash.viewApplication': 'View my application',
+
     'footer.about': "Connecting buyers with Cambodia's trusted local producers, farmers and artisans.",
     'footer.explore': 'Explore',
     'footer.sellers': 'For Sellers',
@@ -625,6 +627,8 @@ const TEXT = {
     'apply.rejectedText': 'សូមទាក់ទងអ្នកគ្រប់គ្រង ប្រសិនបើអ្នកគិតថានេះជាកំហុស។',
     'apply.pleaseFix': 'អ្នកគ្រប់គ្រងត្រូវការព័ត៌មានបន្ថែមមុនពេលអនុម័តគណនីរបស់អ្នក។',
     'apply.adminNote': 'កំណត់សម្គាល់ពីអ្នកគ្រប់គ្រង៖',
+
+    'dash.viewApplication': 'មើលពាក្យសុំរបស់ខ្ញុំ',
 
     'footer.about': 'ភ្ជាប់អ្នកទិញជាមួយអ្នកផលិត កសិករ និងសិប្បករក្នុងស្រុកដែលគួរឱ្យទុកចិត្តនៅកម្ពុជា។',
     'footer.explore': 'ស្វែងយល់',

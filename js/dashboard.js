@@ -74,11 +74,16 @@ function renderVerificationNotice() {
 
   addButton.hidden = true;
   const pending = status === 'PENDING';
+  const needsFix = status === 'NEEDS_MORE_INFO';
   box.innerHTML = `
     <div class="alert alert-info">
       <strong>${t(pending ? 'dash.pendingTitle' : 'dash.notAppliedTitle')}</strong><br>
       ${t(pending ? 'dash.pendingText' : 'dash.notAppliedText')}
-      ${pending ? '' : ` <a href="apply.html">${t('dash.apply')}</a>`}
+      <div class="notice-actions">
+        <a class="btn btn-gold btn-sm" href="apply.html">
+          ${t(pending || needsFix ? 'dash.viewApplication' : 'dash.apply')}
+        </a>
+      </div>
     </div>`;
 }
 

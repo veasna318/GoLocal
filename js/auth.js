@@ -25,12 +25,23 @@ async function loadSession() {
   window.dispatchEvent(new Event('authchange'));
 }
 
+// Someone who signed up as a producer or business counts as a seller for
+// navigation, even before an admin approves them. platform_role is only
+// granted on approval, so without this a new seller could never reach the
+// page where they apply.
 function isSeller() {
+  if (!auth.profile) return false;
+  return ['PRODUCER', 'BUSINESS'].includes(auth.profile.platform_role)
+      || ['PRODUCER', 'BUSINESS'].includes(auth.profile.signup_type);
+}
+
+// True only once an administrator has granted the role.
+function isApprovedSeller() {
   return !!auth.profile && ['PRODUCER', 'BUSINESS'].includes(auth.profile.platform_role);
 }
 
 function isVerifiedSeller() {
-  return isSeller() && auth.profile.verification_status === 'VERIFIED' && auth.profile.is_active;
+  return isApprovedSeller() && auth.profile.verification_status === 'VERIFIED' && auth.profile.is_active;
 }
 
 function isAdmin() {
