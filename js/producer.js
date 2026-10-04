@@ -72,7 +72,7 @@ function renderHead(rating, productCount) {
 
   // The person's name is the heading. The farm and province sit under it.
   document.getElementById('profile-name').innerHTML =
-    `${esc(person || farm)} ${seller.verification_status === 'VERIFIED' ? verifiedBadge() : ''}`;
+    `${esc(person || farm)} ${seller.verification_status === 'VERIFIED' ? verifiedBadge(seller.platform_role) : ''}`;
 
   const subLine = document.getElementById('profile-sub');
   const parts = [];
@@ -82,12 +82,12 @@ function renderHead(rating, productCount) {
   subLine.innerHTML = parts.join('<span class="sub-dot">&#183;</span>');
 
   const rows = [
-    ['prod.productCount', String(productCount)],
+    [isBusinessProfile() ? 'prod.requestCount' : 'prod.productCount', String(productCount)],
     ['detail.rating', `${stars(rating.average_rating)} <span>${Number(rating.average_rating || 0).toFixed(1)}</span>`],
     ['card.reviews', String(rating.review_count || 0)],
     ['spot.since', seller.established_year ? String(seller.established_year) : ''],
     ['prod.capacity', esc(seller.production_capacity)],
-    ['prod.owner', esc(farm)],
+    [isBusinessProfile() ? '' : 'prod.owner', isBusinessProfile() ? '' : esc(farm)],
   ];
 
   document.getElementById('profile-stats').innerHTML = rows
@@ -232,6 +232,60 @@ function renderCertifications(products) {
     : '';
 }
 
+let profileRegions = [];
+let profileRequests = [];
+
+function isBusinessProfile() {
+  return seller && seller.platform_role === 'BUSINESS';
+}
+
+// The request cards and the modal both need province names.
+async function loadRegionsForRequests() {
+  const { data } = await db.from('regions')
+    .select('id, name_en, name_km').eq('is_active', true);
+  profileRegions = data || [];
+  reqModal.regions = profileRegions;
+}
+
+function profileRegionName(id) {
+  const found = profileRegions.find((r) => r.id === id);
+  return found ? localName(found) : '';
+}
+
+// A business has requests where a producer has products, so the same
+// panel is filled with request cards instead.
+async function loadRequests(rating) {
+  const grid = document.getElementById('product-grid');
+  grid.innerHTML = skeletonCards(4, 'request');
+
+  const { data } = await db
+    .from('sourcing_requests')
+    .select(`id, title, description, quantity_min, quantity_max, quantity_unit,
+             budget_min, budget_max, currency, packaging, certification_required,
+             quality_requirements, contract_type, urgency, preferred_region_ids,
+             image_paths, deadline, status, created_at,
+             business:profiles!business_id(id, display_name, business_name, avatar_path,
+               platform_role, verification_status, region_id, contact_phone,
+               contact_telegram, contact_facebook, contact_email)`)
+    .eq('business_id', producerId)
+    .eq('status', 'OPEN')
+    .order('urgency', { ascending: false })
+    .order('created_at', { ascending: false });
+
+  profileRequests = data || [];
+  const average = rating ? rating.average_rating : null;
+
+  grid.innerHTML = profileRequests.length
+    ? profileRequests.map((r) => requestCard(r, profileRegionName, average)).join('')
+    : emptyMessage('prod.noRequests');
+
+  document.getElementById('product-count').textContent =
+    `${profileRequests.length} ${profileRequests.length === 1 ? t('spot.request') : t('spot.requests')}`;
+
+  watchReveal(grid);
+  return profileRequests.length;
+}
+
 async function loadProducts() {
   const grid = document.getElementById('product-grid');
   grid.innerHTML = skeletonCards(4);
@@ -308,6 +362,10 @@ function renderAll(rating, productCount) {
   renderStory();
   renderPhotos();
   renderContacts();
+
+  // With no farm photos or story there is nothing in the wide column.
+  const photos = document.getElementById('profile-photos');
+  document.querySelector('.profile-body').classList.toggle('contact-only', photos.hidden);
 }
 
 document.getElementById('back-button').addEventListener('click', () => {
@@ -324,7 +382,7 @@ document.getElementById('search-form').addEventListener('submit', (event) => {
 document.getElementById('report-profile').addEventListener('click', reportProfile);
 
 document.getElementById('sort').addEventListener('change', () => {
-  if (seller) loadProducts();
+  if (seller && !isBusinessProfile()) loadProducts();
 });
 
 async function initProducerPage() {
@@ -337,10 +395,37 @@ async function initProducerPage() {
   if (!auth.ready) await loadSession();
   if (!await loadProducer()) return;
 
-  const [rating, productCount] = await Promise.all([loadRating(), loadProducts()]);
-  renderAll(rating, productCount);
+  const business = isBusinessProfile();
+  document.getElementById('panel-heading').textContent = t(business ? 'prod.requests' : 'prod.products');
+  document.getElementById('sort-label').hidden = business;
+
+  const rating = await loadRating();
+  let count;
+
+  if (business) {
+    setUpRequestModal();
+    await loadRegionsForRequests();
+    count = await loadRequests(rating);
+    setUpProfileRequestCards();
+    document.getElementById('profile-certs').hidden = true;
+  } else {
+    count = await loadProducts();
+  }
+
+  renderAll(rating, count);
   showOwnerTools();
   applyTranslations();
+}
+
+// Opening a request from this profile uses the same modal as the board.
+function setUpProfileRequestCards() {
+  document.getElementById('product-grid').addEventListener('click', (event) => {
+    const card = event.target.closest('.request-card');
+    if (!card) return;
+    event.preventDefault();
+    const found = profileRequests.find((r) => r.id === card.dataset.requestId);
+    if (found) openRequestModal(found, reqModal.rating);
+  });
 }
 
 initProducerPage();

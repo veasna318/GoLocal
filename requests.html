@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="css/request-modal.css">
   <link rel="stylesheet" href="css/requests.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -52,25 +53,6 @@
 
   <div id="site-footer"></div>
 
-  <!-- Request detail, shown without leaving the board -->
-  <div class="req-modal" id="req-modal" role="dialog" aria-modal="true" hidden>
-    <div class="req-modal-card" id="req-modal-card">
-      <button type="button" class="req-modal-close" id="req-modal-close"
-              data-i18n-label="detail.close">&times;</button>
-      <div class="req-modal-left" id="req-modal-left"></div>
-      <aside class="req-modal-side" id="req-modal-side"></aside>
-    </div>
-  </div>
-
-  <!-- Full size photo viewer, shared with the product page -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" hidden>
-    <button type="button" class="lightbox-close" id="lightbox-close" data-i18n-label="detail.close">&times;</button>
-    <button type="button" class="lightbox-step" id="lightbox-prev" aria-label="Previous">&#8249;</button>
-    <img id="lightbox-image" alt="">
-    <button type="button" class="lightbox-step" id="lightbox-next" aria-label="Next">&#8250;</button>
-    <span class="lightbox-count" id="lightbox-count"></span>
-  </div>
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-client.js"></script>
   <script src="js/i18n.js"></script>
@@ -78,6 +60,7 @@
   <script src="js/components.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/layout.js"></script>
+  <script src="js/request-modal.js"></script>
   <script src="js/requests.js"></script>
 </body>
 </html>

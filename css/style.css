@@ -135,9 +135,11 @@ button, input, select { font: inherit; color: inherit; }
   border-radius: 999px;
   background: var(--green-600);
   color: var(--white);
-  font-size: 11px;
+  font-size: var(--meta);
   font-weight: 600;
 }
+/* Business accounts use the gold accent instead of the producer green. */
+.badge-business { background: var(--gold-500); color: var(--green-900); }
 
 .stars { display: inline-flex; gap: 1px; font-size: 12px; }
 .star-on { color: var(--star); }
@@ -445,6 +447,7 @@ img.avatar-letter { object-fit: cover; }
   box-shadow: var(--shadow-sm);
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
+.request-card { cursor: pointer; }
 .request-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .request-card-media {
   position: relative;
@@ -493,6 +496,21 @@ img.avatar-letter { object-fit: cover; }
 .request-stats dt { color: var(--text-soft); font-size: var(--meta); }
 .request-stats dd { margin: 0; font-size: var(--xs); font-weight: 600; }
 .request-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
+.request-card-footer .btn { flex: none; }
+
+/* One line of provinces that trails off instead of widening the card. */
+.province-line {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  color: var(--green-600);
+  font-size: var(--meta);
+}
+.province-line .icon { flex: none; }
+.province-line span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Wrapping list, used where there is room for every province. */
 .province-list { display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--green-600); font-size: var(--meta); }
 .province-list span { display: inline-flex; align-items: center; gap: 3px; }
 

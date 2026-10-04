@@ -39,8 +39,11 @@ function stars(rating) {
   return html + '</span>';
 }
 
-function verifiedBadge() {
-  return `<span class="badge-verified">${icon('check')}${t('card.verified')}</span>`;
+// Businesses wear the gold badge, producers the green one, so the two
+// kinds of account are told apart at a glance.
+function verifiedBadge(role) {
+  const kind = role === 'BUSINESS' ? ' badge-business' : '';
+  return `<span class="badge-verified${kind}">${icon('check')}${t('card.verified')}</span>`;
 }
 
 const FALLBACK_IMAGE = "this.onerror=null;this.src='assets/images/placeholder.svg'";
@@ -89,10 +92,10 @@ function requestCard(r, regionName, rating) {
   const cover = (r.image_paths || [])[0];
 
   return `
-    <article class="request-card reveal">
+    <article class="request-card reveal" data-request-id="${esc(r.id)}">
       <div class="request-card-media" style="background-image:url('${esc(imageUrl(cover))}')">
         <div class="request-card-tags">
-          ${business.verification_status === 'VERIFIED' ? verifiedBadge() : ''}
+          ${business.verification_status === 'VERIFIED' ? verifiedBadge(business.platform_role) : ''}
           ${urgent ? `<span class="tag tag-red">${t('req.urgent')}</span>` : ''}
         </div>
         <h3>${esc(r.title)}</h3>
@@ -114,10 +117,10 @@ function requestCard(r, regionName, rating) {
         </dl>
 
         <div class="request-card-footer">
-          <div class="province-list">
-            ${provinces.length
-              ? provinces.map((p) => `<span>${icon('pin')}${esc(p)}</span>`).join('')
-              : `<span>${icon('pin')}${t('req.anyProvince')}</span>`}
+          <div class="province-line" title="${esc(provinces.join(', '))}">
+            ${icon('pin')}<span>${provinces.length
+              ? esc(provinces.join(' \u00b7 '))
+              : t('req.anyProvince')}</span>
           </div>
           <a class="btn btn-outline btn-sm" href="requests.html?id=${esc(r.id)}">${t('req.details')}</a>
         </div>

@@ -182,7 +182,7 @@ async function loadRequests() {
 
   const { data, error } = await db
     .from('sourcing_requests')
-    .select('id, title, quantity_min, quantity_max, quantity_unit, deadline, urgency, preferred_region_ids, image_paths, business:profiles(id, display_name, business_name, avatar_path, verification_status, region_id)')
+    .select('id, title, quantity_min, quantity_max, quantity_unit, deadline, urgency, preferred_region_ids, image_paths, business:profiles(id, display_name, business_name, avatar_path, platform_role, verification_status, region_id)')
     .eq('status', 'OPEN')
     .or(`deadline.is.null,deadline.gte.${today}`)
     .order('urgency', { ascending: false })
@@ -205,6 +205,16 @@ async function loadRequests() {
     }
   }
   renderRequests();
+}
+
+// Clicking anywhere on a request card opens that request on the board.
+function setUpRequestCards() {
+  document.getElementById('request-grid').addEventListener('click', (event) => {
+    const card = event.target.closest('.request-card');
+    if (!card) return;
+    event.preventDefault();
+    location.href = `requests.html?id=${encodeURIComponent(card.dataset.requestId)}`;
+  });
 }
 
 function renderRequests() {
@@ -366,6 +376,7 @@ async function initHome() {
   window.addEventListener('resize', updateCategoryFade);
   watchReveal();
   pointBusinessCta();
+  setUpRequestCards();
 
   try {
     await loadReferenceData();

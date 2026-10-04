@@ -154,6 +154,10 @@
 
 /* Keeps the contact card in the narrow column even when there is no story. */
 .profile-contact { grid-column: 2; align-self: start; }
+/* Nothing fills the wide column on a business profile, so the
+   contact card moves across instead of leaving a gap. */
+.profile-body.contact-only { grid-template-columns: 1fr; }
+.profile-body.contact-only .profile-contact { grid-column: auto; max-width: 360px; }
 
 /* Farm photos and story, in the left column */
 .profile-photos { min-width: 0; }

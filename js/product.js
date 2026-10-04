@@ -176,7 +176,7 @@ function sellerChip(seller, extraClass = '') {
         <strong>${esc(person || farm)}</strong>
         ${under.length ? `<small>${icon('pin')}${esc(under.join(' \u00b7 '))}</small>` : ''}
       </span>
-      ${seller.verification_status === 'VERIFIED' ? verifiedBadge() : ''}
+      ${seller.verification_status === 'VERIFIED' ? verifiedBadge(seller.platform_role) : ''}
     </a>`;
 }
 
@@ -378,7 +378,7 @@ async function loadProduct() {
       product_images(storage_path, is_cover, display_order),
       seller:profiles!owner_id(
         id, display_name, business_name, avatar_path, bio, farm_story,
-        established_year, verification_status,
+        established_year, verification_status, platform_role,
         contact_phone, contact_telegram, contact_facebook, contact_email,
         region:regions(name_en, name_km),
         seller_photos(storage_path, display_order)

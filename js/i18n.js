@@ -104,6 +104,8 @@ const TEXT = {
     'spot.visit': 'Visit Profile',
     'spot.products': 'products',
     'spot.product': 'product',
+    'spot.requests': 'requests',
+    'spot.request': 'request',
     'spot.rating': 'rating',
     'spot.since': 'Since',
 
@@ -291,6 +293,9 @@ const TEXT = {
     'prod.productCount': 'Products',
     'prod.capacity': 'Capacity',
     'prod.noProducts': 'This producer has no published products yet.',
+    'prod.requests': 'Requests',
+    'prod.requestCount': 'Requests',
+    'prod.noRequests': 'This business has no open requests right now.',
     'prod.notFound': 'This producer could not be found.',
 
     'acct.title': 'My Account',
@@ -528,6 +533,8 @@ const TEXT = {
     'spot.visit': 'មើលប្រវត្តិរូប',
     'spot.products': 'ផលិតផល',
     'spot.product': 'ផលិតផល',
+    'spot.requests': 'សំណើ',
+    'spot.request': 'សំណើ',
     'spot.rating': 'ការវាយតម្លៃ',
     'spot.since': 'តាំងពី',
 
@@ -715,6 +722,9 @@ const TEXT = {
     'prod.productCount': 'ផលិតផល',
     'prod.capacity': 'សមត្ថភាពផលិត',
     'prod.noProducts': 'អ្នកផលិតនេះមិនទាន់មានផលិតផលបង្ហោះទេ។',
+    'prod.requests': 'សំណើ',
+    'prod.requestCount': 'សំណើ',
+    'prod.noRequests': 'អាជីវកម្មនេះមិនមានសំណើបើកនៅពេលនេះទេ។',
     'prod.notFound': 'រកមិនឃើញអ្នកផលិតនេះទេ។',
 
     'acct.title': 'គណនីរបស់ខ្ញុំ',
