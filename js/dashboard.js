@@ -1,4 +1,85 @@
-// Seller dashboard: shows the signed-in seller's products.
+// Seller dashboard. A producer manages products here; a business manages
+// sourcing requests, since the database will not let it create products.
+
+function isBusinessAccount() {
+  return auth.profile.platform_role === 'BUSINESS'
+    || (auth.profile.platform_role === 'BUYER' && auth.profile.signup_type === 'BUSINESS');
+}
+
+// Points the heading and the Add button at whichever thing this
+// account actually owns.
+function renderDashboardKind() {
+  const business = isBusinessAccount();
+  const addButton = document.getElementById('add-button');
+
+  document.getElementById('dash-heading').textContent = t(business ? 'dash.myRequests' : 'dash.myProducts');
+  document.getElementById('dash-sub').textContent = t(business ? 'dash.subBusiness' : 'dash.sub');
+  addButton.textContent = t(business ? 'dash.addRequest' : 'dash.addProduct');
+  addButton.href = business ? 'request-form.html' : 'product-form.html';
+}
+
+async function loadMyRequests() {
+  const list = document.getElementById('product-list');
+  list.innerHTML = skeletonCards(1, 'request');
+
+  const { data, error } = await db
+    .from('sourcing_requests')
+    .select('id, title, status, quantity_min, quantity_max, quantity_unit, deadline, urgency')
+    .eq('business_id', auth.user.id)
+    .order('created_at', { ascending: false });
+
+  if (error) { list.innerHTML = emptyMessage('error.load'); return; }
+  if (!data.length) { list.innerHTML = emptyMessage('dash.noRequests'); return; }
+
+  list.innerHTML = `
+    <table class="dash-table">
+      <thead>
+        <tr>
+          <th>${t('dash.request')}</th>
+          <th>${t('req.quantity')}</th>
+          <th>${t('req.deadline')}</th>
+          <th>${t('dash.status')}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        ${data.map((r) => {
+          const quantity = r.quantity_min && r.quantity_max && Number(r.quantity_min) !== Number(r.quantity_max)
+            ? `${formatNumber(r.quantity_min)} - ${formatNumber(r.quantity_max)}`
+            : formatNumber(r.quantity_min || r.quantity_max || 0);
+          return `
+            <tr>
+              <td>
+                <strong>${esc(r.title)}</strong>
+                ${r.urgency === 'URGENT' ? `<span class="tag tag-red">${t('req.urgent')}</span>` : ''}
+              </td>
+              <td>${esc(quantity)} ${esc(r.quantity_unit || 'kg')}</td>
+              <td>${r.deadline ? formatDate(r.deadline) : t('req.noDeadline')}</td>
+              <td><span class="status-tag status-${r.status}">${r.status}</span></td>
+              <td>
+                <div class="row-actions">
+                  <a class="btn btn-outline btn-sm" href="requests.html?id=${esc(r.id)}">${t('adm.view')}</a>
+                  <a class="btn btn-outline btn-sm" href="request-form.html?id=${esc(r.id)}">${t('dash.edit')}</a>
+                  <button class="btn btn-outline btn-sm delete-request" data-id="${esc(r.id)}">${t('dash.delete')}</button>
+                </div>
+              </td>
+            </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+
+  list.querySelectorAll('.delete-request').forEach((button) => {
+    button.addEventListener('click', async () => {
+      if (!confirm(t('dash.confirmDeleteRequest'))) return;
+      await db.from('sourcing_requests').delete().eq('id', button.dataset.id);
+      loadMyRequests();
+    });
+  });
+}
+
+function loadMyThings() {
+  return isBusinessAccount() ? loadMyRequests() : loadMyProducts();
+}
 
 async function loadMyProducts() {
   const list = document.getElementById('product-list');
@@ -89,11 +170,13 @@ function renderVerificationNotice() {
 
 async function initDashboard() {
   if (!(await requireAccount('seller'))) return;
+  renderDashboardKind();
   renderVerificationNotice();
-  loadMyProducts();
+  loadMyThings();
   window.addEventListener('langchange', () => {
+    renderDashboardKind();
     renderVerificationNotice();
-    loadMyProducts();
+    loadMyThings();
   });
 }
 

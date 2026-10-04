@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sourcing Request | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="page-header">
+    <div class="container">
+      <h1 id="page-title" data-i18n="rform.newTitle">New sourcing request</h1>
+      <p><a href="dashboard.html" style="color:var(--gold-400)" data-i18n="form.back">Back to dashboard</a></p>
+    </div>
+  </section>
+
+  <main class="container form-page">
+    <div class="form-card wide-card">
+      <form id="request-form">
+        <div class="alert alert-error" id="form-error" hidden></div>
+
+        <h2 class="section-title" data-i18n="rform.what">What you need</h2>
+
+        <div class="field">
+          <label for="title" data-i18n="rform.title">Request title</label>
+          <input class="input" id="title" name="title" required minlength="5" maxlength="160">
+          <p class="hint" data-i18n="rform.titleHint"></p>
+        </div>
+
+        <div class="field">
+          <label for="category_id" data-i18n="form.category">Category</label>
+          <select class="input" id="category_id" name="category_id"></select>
+        </div>
+
+        <div class="field">
+          <label for="description" data-i18n="rform.desc">What you are looking for</label>
+          <textarea class="input" id="description" name="description" required
+                    minlength="10" maxlength="5000"></textarea>
+          <p class="hint" data-i18n="rform.descHint"></p>
+        </div>
+
+        <h2 class="section-title" data-i18n="rform.howMuch">Quantity and budget</h2>
+
+        <div class="field-row-3">
+          <div class="field">
+            <label for="quantity_min" data-i18n="rform.qtyMin">Quantity from</label>
+            <input class="input" type="number" id="quantity_min" name="quantity_min" min="0" step="any">
+          </div>
+          <div class="field">
+            <label for="quantity_max" data-i18n="rform.qtyMax">Quantity to</label>
+            <input class="input" type="number" id="quantity_max" name="quantity_max" min="0" step="any">
+          </div>
+          <div class="field">
+            <label for="quantity_unit" data-i18n="form.unit">Unit</label>
+            <input class="input" id="quantity_unit" name="quantity_unit" value="kg" maxlength="30">
+          </div>
+        </div>
+
+        <div class="field-row-3">
+          <div class="field">
+            <label for="budget_min" data-i18n="rform.budgetMin">Budget from</label>
+            <input class="input" type="number" id="budget_min" name="budget_min" min="0" step="any">
+          </div>
+          <div class="field">
+            <label for="budget_max" data-i18n="rform.budgetMax">Budget to</label>
+            <input class="input" type="number" id="budget_max" name="budget_max" min="0" step="any">
+          </div>
+          <div class="field">
+            <label for="currency" data-i18n="rform.currency">Currency</label>
+            <select class="input" id="currency" name="currency">
+              <option value="USD">USD ($)</option>
+              <option value="KHR">KHR (៛)</option>
+            </select>
+          </div>
+        </div>
+        <p class="hint" data-i18n="rform.budgetHint"></p>
+
+        <h2 class="section-title" data-i18n="rform.terms">Terms</h2>
+
+        <div class="field-row-3">
+          <div class="field">
+            <label for="contract_type" data-i18n="req.contract">Contract</label>
+            <select class="input" id="contract_type" name="contract_type">
+              <option value="ONE_TIME" data-i18n="req.oneTime">One time</option>
+              <option value="LONG_TERM" data-i18n="req.longTerm">Long term</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="urgency" data-i18n="rform.urgency">Urgency</label>
+            <select class="input" id="urgency" name="urgency">
+              <option value="NORMAL" data-i18n="rform.normal">Normal</option>
+              <option value="URGENT" data-i18n="req.urgent">Urgent</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="deadline" data-i18n="req.deadline">Deadline</label>
+            <input class="input" type="date" id="deadline" name="deadline">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="packaging" data-i18n="req.packaging">Packaging</label>
+            <input class="input" id="packaging" name="packaging" maxlength="200">
+            <p class="hint" data-i18n="rform.packagingHint"></p>
+          </div>
+          <div class="field">
+            <label for="certification_required" data-i18n="rform.certification">Certification required</label>
+            <input class="input" id="certification_required" name="certification_required" maxlength="200">
+            <p class="hint" data-i18n="rform.certificationHint"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="quality_requirements" data-i18n="req.quality">Quality requirements</label>
+          <textarea class="input" id="quality_requirements" name="quality_requirements"
+                    maxlength="2000"></textarea>
+          <p class="hint" data-i18n="rform.qualityHint"></p>
+        </div>
+
+        <h2 class="section-title" data-i18n="rform.where">Where suppliers can be</h2>
+        <p class="hint" data-i18n="rform.whereHint"></p>
+        <div class="check-grid" id="province-grid"></div>
+
+        <h2 class="section-title" data-i18n="rform.photos">Reference photos</h2>
+        <p class="hint" data-i18n="rform.photosHint"></p>
+        <div class="photo-grid" id="photo-grid"></div>
+        <input type="file" id="photo-input" accept="image/jpeg,image/png,image/webp" multiple hidden>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-green" id="post-button" value="OPEN"
+                  data-i18n="rform.post">Post request</button>
+          <button type="submit" class="btn btn-outline" id="close-button" value="CLOSED"
+                  data-i18n="rform.saveClosed" hidden>Save and close</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/request-form.js"></script>
+</body>
+</html>

@@ -83,6 +83,16 @@ function renderRegionChips() {
     </select>`;
 }
 
+// A business that is already signed in and verified should go straight to
+// the form, not back to the sign-up page.
+function pointBusinessCta() {
+  const cta = document.getElementById('business-cta');
+  if (!cta || typeof auth === 'undefined' || !auth.profile) return;
+  if (auth.profile.platform_role === 'BUSINESS' && isVerifiedSeller()) {
+    cta.href = 'request-form.html';
+  }
+}
+
 function setupFilters() {
   const chips = document.getElementById('region-chips');
   chips.addEventListener('click', (e) => {
@@ -355,6 +365,7 @@ async function initHome() {
   enableWheelScroll(document.getElementById('region-chips'));
   window.addEventListener('resize', updateCategoryFade);
   watchReveal();
+  pointBusinessCta();
 
   try {
     await loadReferenceData();

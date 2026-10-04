@@ -21,7 +21,8 @@
 
 .field { margin-bottom: 16px; }
 .field > label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500; }
-.field .hint { margin-top: 4px; color: var(--text-soft); font-size: 11px; }
+/* Hints read the same whether or not they sit inside a field. */
+.hint, .field .hint { margin-top: 4px; color: var(--text-soft); font-size: var(--meta); }
 
 /* Auto fill button that sits inside an empty name box */
 .input-wrap { position: relative; }
@@ -86,6 +87,26 @@ textarea.input { min-height: 110px; resize: vertical; line-height: 1.6; }
 .alert-error { background: #fdecec; color: #a3302d; }
 .alert-info { background: var(--cream-100); color: var(--text-soft); }
 .alert-success { background: var(--green-100); color: var(--green-800); }
+
+/* Tick list, used for choosing several provinces at once */
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 6px 14px;
+  margin-top: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--cream-50);
+}
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--sm);
+  cursor: pointer;
+}
+.check-row input { width: 16px; height: 16px; accent-color: var(--green-600); cursor: pointer; }
 
 /* Photo picker */
 .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; margin-top: 10px; }
@@ -154,12 +175,16 @@ textarea.input { min-height: 110px; resize: vertical; line-height: 1.6; }
 .status-PUBLISHED { background: var(--green-100); color: var(--green-800); }
 .status-HIDDEN { background: #fdecec; color: #a3302d; }
 .status-ARCHIVED { background: var(--cream-100); color: var(--text-soft); }
+/* Sourcing request states */
+.status-OPEN { background: var(--green-100); color: var(--green-800); }
+.status-CLOSED { background: var(--cream-200); color: var(--text-soft); }
 
 .dash-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
 .dash-table th, .dash-table td { padding: 12px 14px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--line); }
 .dash-table th { background: var(--cream-50); font-size: 12px; color: var(--text-soft); font-weight: 600; }
 .dash-table tr:last-child td { border-bottom: 0; }
 .dash-table img { width: 44px; height: 44px; border-radius: var(--radius-sm); object-fit: cover; }
+.dash-table .tag { margin-left: 8px; }
 .row-actions { display: flex; gap: 8px; justify-content: flex-end; }
 
 @media (max-width: 720px) {
