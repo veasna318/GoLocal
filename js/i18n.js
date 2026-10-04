@@ -8,7 +8,6 @@ const TEXT = {
     'nav.products': 'Products',
     'nav.requests': 'Request',
     'nav.about': 'About',
-    'header.tagline': 'Made by Khmer for Khmer',
     'header.become': 'Become a Producer',
 
     'hero.visit': 'Visit Page',
@@ -287,7 +286,6 @@ const TEXT = {
     'nav.products': 'ផលិតផល',
     'nav.requests': 'សំណើ',
     'nav.about': 'អំពីយើង',
-    'header.tagline': 'ផលិតដោយខ្មែរ សម្រាប់ខ្មែរ',
     'header.become': 'ក្លាយជាអ្នកផលិត',
 
     'hero.visit': 'មើលទំព័រ',

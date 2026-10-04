@@ -154,7 +154,7 @@ button, input, select { font: inherit; color: inherit; }
    align-self stops the flex column from stretching it sideways. */
 .brand-logo {
   align-self: flex-start;
-  height: 24px;
+  height: 38px;
   width: auto;
   max-width: none;
   object-fit: contain;
@@ -162,7 +162,6 @@ button, input, select { font: inherit; color: inherit; }
 .footer-logo { height: 26px; margin-bottom: 10px; }
 .brand-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
 .brand-name span { color: var(--gold-500); }
-.brand-tagline { font-size: 10px; opacity: 0.7; }
 
 .header-menu { display: flex; align-items: center; gap: 32px; margin-left: auto; }
 .main-nav { display: flex; gap: 28px; }

@@ -49,7 +49,6 @@ function renderHeader() {
       <div class="container header-inner">
         <a href="index.html" class="brand">
           <img class="brand-logo" src="assets/images/logo.png" alt="GoLocal">
-          <small class="brand-tagline">${t('header.tagline')}</small>
         </a>
 
         <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
