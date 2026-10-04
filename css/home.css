@@ -320,6 +320,4 @@
   .cta-grid { grid-template-columns: 1fr; }
   .cta-card { padding: 24px; }
   .js .product-card.reveal.is-visible:hover { transform: translateY(-3px); }
-  .product-card-meta .review-count { display: none; }
-  .product-card-body { padding: 10px 12px 12px; }
 }

@@ -393,7 +393,7 @@ img.avatar-letter { object-fit: cover; }
 .product-card-price span { color: var(--text-soft); font-size: 11px; font-weight: 400; }
 
 /* The rating row and the Visit Page button share one spot and swap on hover. */
-.product-card-swap { display: grid; margin-top: auto; padding-top: 8px; }
+.product-card-swap { display: grid; margin-top: auto; padding-top: 4px; }
 .product-card-meta,
 .product-card-more {
   grid-area: 1 / 1;
@@ -407,6 +407,15 @@ img.avatar-letter { object-fit: cover; }
 .product-card-more { opacity: 0; transform: translateY(8px); pointer-events: none; }
 .product-card:hover .product-card-meta { opacity: 0; transform: translateY(-8px); }
 .product-card:hover .product-card-more { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 760px) {
+  .product-card-body { padding: 10px 12px 12px; }
+  .product-card-price { font-size: 13px; }
+  .product-card-price span { font-size: 10px; }
+  .product-card-meta { gap: 4px; font-size: 10px; }
+  .product-card-meta .review-count { display: none; }
+  .product-card-swap { padding-top: 2px; }
+}
 
 /* Request card */
 .request-card {
