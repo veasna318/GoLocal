@@ -107,6 +107,8 @@ function renderStory() {
 
 function renderPhotos() {
   const section = document.getElementById('profile-photos');
+  const heading = document.getElementById('farm-heading');
+  heading.textContent = seller.business_name || t('prod.photos');
   const storyBox = document.getElementById('farm-story');
   const story = seller.farm_story || '';
 
@@ -234,13 +236,26 @@ async function loadProducts() {
   const grid = document.getElementById('product-grid');
   grid.innerHTML = skeletonCards(4);
 
-  const { data } = await db
+  const sorts = {
+    recommended: [['is_boosted', false], ['average_rating', false], ['published_at', false]],
+    newest: [['published_at', false]],
+    priceLow: [[priceColumn('min'), true]],
+    priceHigh: [[priceColumn('min'), false]],
+    rating: [['average_rating', false], ['review_count', false]],
+  };
+  const chosen = document.getElementById('sort').value;
+
+  let query = db
     .from('product_cards')
     .select('*')
     .eq('seller_id', producerId)
-    .eq('status', 'PUBLISHED')
-    .order('is_boosted', { ascending: false })
-    .order('published_at', { ascending: false });
+    .eq('status', 'PUBLISHED');
+
+  (sorts[chosen] || sorts.recommended).forEach(([column, ascending]) => {
+    query = query.order(column, { ascending, nullsFirst: false });
+  });
+
+  const { data } = await query;
 
   const products = data || [];
   grid.innerHTML = products.length
@@ -307,6 +322,10 @@ document.getElementById('search-form').addEventListener('submit', (event) => {
 });
 
 document.getElementById('report-profile').addEventListener('click', reportProfile);
+
+document.getElementById('sort').addEventListener('change', () => {
+  if (seller) loadProducts();
+});
 
 async function initProducerPage() {
   if (!producerId) {

@@ -66,7 +66,7 @@
 
     <div class="profile-body">
       <section class="profile-photos" id="profile-photos" hidden>
-        <h2 data-i18n="prod.photos">Farm and workshop</h2>
+        <h2 id="farm-heading">Farm and workshop</h2>
         <div class="photo-row" id="photo-row"></div>
         <p class="farm-text" id="farm-story" hidden></p>
       </section>
@@ -81,6 +81,16 @@
       <div class="section-head">
         <h2 data-i18n="prod.products">Products</h2>
         <p class="section-sub" id="product-count"></p>
+        <label class="sort-label" id="sort-label">
+          <span data-i18n="browse.sortBy">Sort by</span>
+          <select class="input" id="sort">
+            <option value="recommended" data-i18n="browse.sortRecommended">Recommended</option>
+            <option value="newest" data-i18n="browse.sortNewest">Newest</option>
+            <option value="priceLow" data-i18n="browse.sortPriceLow">Price: low to high</option>
+            <option value="priceHigh" data-i18n="browse.sortPriceHigh">Price: high to low</option>
+            <option value="rating" data-i18n="browse.sortRating">Highest rated</option>
+          </select>
+        </label>
       </div>
       <div class="product-grid" id="product-grid"></div>
     </section>
