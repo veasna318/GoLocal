@@ -119,6 +119,8 @@ const TEXT = {
     'cta.businessTitle': 'Looking for local suppliers?',
     'cta.businessText': 'Post what your business needs and let verified local producers contact you directly.',
     'cta.businessBtn': 'Post a Request',
+    'cta.businessApply': 'Apply as Business',
+    'cta.goDashboard': 'Go to my dashboard',
 
     'empty.products': 'No products found for this filter yet.',
     'empty.requests': 'No open requests at the moment.',
@@ -548,6 +550,8 @@ const TEXT = {
     'cta.businessTitle': 'កំពុងរកអ្នកផ្គត់ផ្គង់ក្នុងស្រុក?',
     'cta.businessText': 'បង្ហោះតម្រូវការរបស់អាជីវកម្មអ្នក ហើយឱ្យអ្នកផលិតដែលបានផ្ទៀងផ្ទាត់ទាក់ទងមកអ្នកផ្ទាល់។',
     'cta.businessBtn': 'បង្ហោះសំណើ',
+    'cta.businessApply': 'ដាក់ពាក្យជាអាជីវកម្ម',
+    'cta.goDashboard': 'ទៅផ្ទាំងគ្រប់គ្រងរបស់ខ្ញុំ',
 
     'empty.products': 'មិនទាន់មានផលិតផលសម្រាប់ការស្វែងរកនេះនៅឡើយទេ។',
     'empty.requests': 'មិនទាន់មានសំណើបើកនៅពេលនេះទេ។',

@@ -14,6 +14,11 @@ const savedFiles = {};             // kind -> rows already stored
 const newFiles = {};               // kind -> files just picked
 KINDS.forEach((kind) => { savedFiles[kind] = []; newFiles[kind] = []; });
 
+// A buyer has no dashboard, so anyone without a seller account goes home.
+function afterApplyPage() {
+  return isSeller() ? 'dashboard.html' : 'index.html';
+}
+
 function showError(message) {
   errorBox.textContent = message;
   errorBox.hidden = false;
@@ -242,7 +247,7 @@ form.addEventListener('submit', async (event) => {
 
     await uploadEvidence(id);
     await loadSession();
-    location.href = 'dashboard.html';
+    location.href = 'apply.html';
   } catch (error) {
     showError((error && error.message) ? error.message : t('form.required'));
     button.disabled = false;
@@ -252,11 +257,11 @@ form.addEventListener('submit', async (event) => {
 
 document.getElementById('back-button').addEventListener('click', () => {
   if (history.length > 1) history.back();
-  else location.href = 'dashboard.html';
+  else location.href = afterApplyPage();
 });
 
 async function initApplyPage() {
-  if (!(await requireAccount('seller'))) return;
+  if (!(await requireAccount())) return;
 
   // Already approved, so there is nothing to fill in.
   if (auth.profile.verification_status === 'VERIFIED') {
@@ -273,7 +278,7 @@ async function initApplyPage() {
 
   if (status === 'PENDING') {
     showStatus('apply.waitingTitle', 'apply.waitingText', 'wait',
-      `<a class="btn btn-outline" href="dashboard.html">${t('form.back')}</a>`);
+      `<a class="btn btn-outline" href="${afterApplyPage()}">${t('detail.back')}</a>`);
   } else if (status === 'REJECTED') {
     showStatus('apply.rejectedTitle', 'apply.rejectedText', 'no', '', application.admin_note || '');
   } else {

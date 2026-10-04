@@ -83,13 +83,40 @@ function renderRegionChips() {
     </select>`;
 }
 
-// A business that is already signed in and verified should go straight to
-// the form, not back to the sign-up page.
-function pointBusinessCta() {
-  const cta = document.getElementById('business-cta');
-  if (!cta || typeof auth === 'undefined' || !auth.profile) return;
-  if (auth.profile.platform_role === 'BUSINESS' && isVerifiedSeller()) {
-    cta.href = 'request-form.html';
+// The two cards at the foot of the page send a visitor to sign up, but
+// someone already signed in should go to the next step that is actually
+// useful to them, with a label that matches.
+function pointCallsToAction() {
+  const producerCta = document.getElementById('producer-cta');
+  const businessCta = document.getElementById('business-cta');
+  if (!producerCta || !businessCta) return;
+
+  // Signed out: the sign-up page is the right place for both.
+  if (typeof auth === 'undefined' || !auth.profile) {
+    producerCta.href = 'signup.html?type=producer';
+    producerCta.textContent = t('cta.producerBtn');
+    businessCta.href = 'signup.html?type=business';
+    businessCta.textContent = t('cta.businessBtn');
+    return;
+  }
+
+  const role = auth.profile.platform_role;
+  const verified = isVerifiedSeller();
+
+  if (role === 'PRODUCER' && verified) {
+    producerCta.href = 'dashboard.html';
+    producerCta.textContent = t('cta.goDashboard');
+  } else {
+    producerCta.href = 'apply.html';
+    producerCta.textContent = t('cta.producerBtn');
+  }
+
+  if (role === 'BUSINESS' && verified) {
+    businessCta.href = 'request-form.html';
+    businessCta.textContent = t('cta.businessBtn');
+  } else {
+    businessCta.href = 'apply.html';
+    businessCta.textContent = t('cta.businessApply');
   }
 }
 
@@ -375,8 +402,10 @@ async function initHome() {
   enableWheelScroll(document.getElementById('region-chips'));
   window.addEventListener('resize', updateCategoryFade);
   watchReveal();
-  pointBusinessCta();
   setUpRequestCards();
+
+  if (!auth.ready) await loadSession();
+  pointCallsToAction();
 
   try {
     await loadReferenceData();
@@ -393,6 +422,7 @@ async function initHome() {
   loadProducers();
   loadRegionCounts();
   window.addEventListener('langchange', rerenderForLanguage);
+  window.addEventListener('langchange', pointCallsToAction);
   // Prices are already loaded, so only the cards need redrawing.
   window.addEventListener('currencychange', () => {
     renderProducts();
