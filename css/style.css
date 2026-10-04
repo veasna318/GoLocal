@@ -518,7 +518,14 @@ img.avatar-letter { object-fit: cover; }
   .menu-open .header-menu { opacity: 1; transform: none; pointer-events: auto; }
   .main-nav { flex-direction: column; gap: 4px; }
   .main-nav a { padding: 10px 0; }
-  .header-actions { justify-content: space-between; }
+  /* The action buttons have to wrap, or the last one runs off the screen
+     and widens every page. */
+  .header-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+  .header-actions .btn { flex: 1 1 140px; justify-content: center; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid > div:first-child { grid-column: 1 / -1; }
 }
@@ -534,6 +541,7 @@ img.avatar-letter { object-fit: cover; }
 
 @media (max-width: 420px) {
   .account-name { display: none; }
+  .header-actions .btn { flex: 1 1 100%; }
 }
 
 /* Green search band, used on the browse and product pages */
