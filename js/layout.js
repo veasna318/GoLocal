@@ -30,6 +30,7 @@ function headerAccountArea() {
       </button>
       <div class="account-dropdown">
         ${seller ? `<a href="dashboard.html">${t('dash.dashboard')}</a>` : ''}
+        ${isAdmin() ? `<a href="admin.html">${t('adm.title')}</a>` : ''}
         <a href="${seller ? `producer.html?id=${auth.user.id}` : 'account.html'}">${t('dash.account')}</a>
         <div class="divider"></div>
         <button type="button" class="logout-button">${t('auth.logout')}</button>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="page-header">
+    <div class="container">
+      <h1 data-i18n="adm.title">Administration</h1>
+    </div>
+  </section>
+
+  <main class="container admin-page">
+    <div class="alert alert-error" id="page-error" hidden></div>
+
+    <nav class="admin-tabs" id="admin-tabs">
+      <button type="button" class="admin-tab active" data-pane="applications">
+        <span data-i18n="adm.applications">Verification</span>
+        <span class="tab-count" id="count-applications">0</span>
+      </button>
+      <button type="button" class="admin-tab" data-pane="reports">
+        <span data-i18n="adm.reports">Reports</span>
+        <span class="tab-count" id="count-reports">0</span>
+      </button>
+      <button type="button" class="admin-tab" data-pane="boosts">
+        <span data-i18n="adm.boosts">Promotions</span>
+        <span class="tab-count" id="count-boosts">0</span>
+      </button>
+    </nav>
+
+    <section class="admin-pane" id="pane-applications"></section>
+    <section class="admin-pane" id="pane-reports" hidden></section>
+    <section class="admin-pane" id="pane-boosts" hidden></section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <!-- Full size photo viewer -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" hidden>
+    <button type="button" class="lightbox-close" id="lightbox-close" data-i18n-label="detail.close">&times;</button>
+    <img id="lightbox-image" alt="">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+/* Admin panel: three queues of cards. */
+
+.admin-page { padding: 24px 20px 64px; }
+
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.admin-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--text-soft);
+  font-size: var(--sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.admin-tab:hover { border-color: var(--green-600); color: var(--green-600); }
+.admin-tab.active { background: var(--green-900); border-color: var(--green-900); color: var(--white); }
+
+.tab-count {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--cream-200);
+  color: var(--text);
+  font-size: var(--meta);
+}
+.admin-tab.active .tab-count { background: var(--gold-500); color: var(--green-900); }
+
+.admin-pane { display: grid; gap: 16px; }
+
+.admin-card {
+  padding: 20px 22px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.admin-card-head h2 { font-size: var(--h4); font-weight: 600; }
+.muted { color: var(--text-soft); font-size: var(--xs); }
+
+.admin-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 30px;
+  margin: 16px 0 0;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.admin-facts dt {
+  color: var(--text-soft);
+  font-size: var(--meta);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.admin-facts dd { margin: 3px 0 0; font-size: var(--sm); font-weight: 600; }
+
+.admin-text { margin-top: 14px; color: var(--text-soft); white-space: pre-line; }
+.admin-text strong { color: var(--text); }
+
+/* Application status colours, matching the product ones in forms.css */
+.status-PENDING { background: var(--cream-200); color: var(--text-soft); }
+.status-NEEDS_MORE_INFO { background: #fdf0d8; color: #8a6210; }
+.status-APPROVED { background: var(--green-100); color: var(--green-800); }
+.status-REJECTED { background: #fdecec; color: #a3302d; }
+
+/* Evidence photos */
+.evidence-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.evidence-tile {
+  width: 130px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--cream-100);
+  cursor: zoom-in;
+}
+.evidence-tile img { width: 100%; height: 92px; object-fit: cover; }
+.evidence-tile span {
+  display: block;
+  padding: 5px 6px;
+  color: var(--text-soft);
+  font-size: var(--meta);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.admin-actions .danger { border-color: var(--red); color: var(--red); }
+.admin-actions .danger:hover { background: var(--red); color: var(--white); }
+
+@media (max-width: 700px) {
+  .admin-card { padding: 16px; }
+  .admin-facts { gap: 10px 20px; }
+  .evidence-tile { width: calc(50% - 5px); }
+  .admin-actions .btn { flex: 1 1 100%; justify-content: center; }
+}
