@@ -96,13 +96,13 @@ function renderHead(rating, productCount) {
     .join('');
 }
 
-// The short introduction goes in the About box. The farm story sits
-// under the farm photos instead.
+// The short introduction sits in the head card under the name.
+// The farm story sits under the farm photos instead.
 function renderStory() {
-  const section = document.getElementById('profile-about');
-  const intro = seller.bio;
-  section.hidden = !intro;
-  if (intro) document.getElementById('profile-story').textContent = intro;
+  const box = document.getElementById('profile-bio');
+  const intro = seller.bio || '';
+  box.hidden = !intro;
+  box.textContent = intro;
 }
 
 function renderPhotos() {
@@ -211,6 +211,25 @@ async function loadRating() {
   return data || { average_rating: 0, review_count: 0 };
 }
 
+// The profile lists the certifications the seller holds, gathered from
+// their published products so nothing has to be typed twice.
+function renderCertifications(products) {
+  const box = document.getElementById('profile-certs');
+  const names = [...new Set(
+    products
+      .map((p) => (p.certification || '').trim())
+      .filter(Boolean)
+      .flatMap((value) => value.split(/[,;/]/).map((part) => part.trim()))
+      .filter(Boolean),
+  )];
+
+  box.hidden = !names.length;
+  box.innerHTML = names.length
+    ? `<span class="cert-label">${t('prod.certs')}</span>`
+      + names.map((name) => `<span class="cert-chip">${icon('check')}${esc(name)}</span>`).join('')
+    : '';
+}
+
 async function loadProducts() {
   const grid = document.getElementById('product-grid');
   grid.innerHTML = skeletonCards(4);
@@ -230,6 +249,8 @@ async function loadProducts() {
 
   document.getElementById('product-count').textContent =
     `${products.length} ${products.length === 1 ? t('spot.product') : t('spot.products')}`;
+
+  renderCertifications(products);
 
   watchReveal(grid);
   return products.length;

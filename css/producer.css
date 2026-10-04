@@ -82,6 +82,41 @@
 }
 .profile-flag { align-self: center; }
 
+/* Short introduction, directly under the name block. */
+.profile-bio {
+  max-width: 760px;
+  margin: 14px 28px 0 calc(96px + 28px + 18px);
+  color: var(--text-soft);
+  white-space: pre-line;
+}
+
+.profile-certs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 28px 0 calc(96px + 28px + 18px);
+}
+.cert-label {
+  color: var(--text-soft);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.cert-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--green-100);
+  color: var(--green-800);
+  font-size: 12px;
+  font-weight: 600;
+}
+.cert-chip .icon { width: 13px; height: 13px; }
+
 .profile-stats {
   display: flex;
   align-items: center;
@@ -117,24 +152,11 @@
   margin-top: 18px;
 }
 
-.profile-about {
-  padding: 22px 24px;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-.profile-about h2 { font-size: 16px; font-weight: 600; }
-.profile-about p {
-  margin-top: 10px;
-  color: var(--text-soft);
-  white-space: pre-line;
-}
-
 /* Keeps the contact card in the narrow column even when there is no story. */
 .profile-contact { grid-column: 2; align-self: start; }
 
-/* Photos */
-.profile-photos { margin-top: 18px; }
+/* Farm photos and story, in the left column */
+.profile-photos { min-width: 0; }
 .profile-photos h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
 
 .photo-row {
@@ -202,6 +224,7 @@
 
 @media (max-width: 1024px) {
   .profile-body { grid-template-columns: 1fr; }
+  .profile-bio, .profile-certs { margin-left: 28px; }
   .profile-contact { grid-column: auto; }
   .profile-products .product-grid { grid-template-columns: repeat(3, 1fr); }
 }
@@ -215,6 +238,7 @@
   .profile-avatar { width: 72px; height: 72px; }
   .profile-id h1 { font-size: 18px; }
   .profile-stats { padding: 16px; gap: 10px 22px; }
+  .profile-bio, .profile-certs { margin: 12px 16px 0; }
   .photo-tile { width: 180px; height: 130px; }
   .profile-products .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }

@@ -273,6 +273,8 @@ const TEXT = {
 
     'prod.editAccount': 'Edit account',
 
+    'prod.certs': 'Certifications',
+
     'footer.about': "Connecting buyers with Cambodia's trusted local producers, farmers and artisans.",
     'footer.explore': 'Explore',
     'footer.sellers': 'For Sellers',
@@ -549,6 +551,8 @@ const TEXT = {
     'prod.owner': 'ម្ចាស់',
 
     'prod.editAccount': 'កែគណនី',
+
+    'prod.certs': 'វិញ្ញាបនបត្រ',
 
     'footer.about': 'ភ្ជាប់អ្នកទិញជាមួយអ្នកផលិត កសិករ និងសិប្បករក្នុងស្រុកដែលគួរឱ្យទុកចិត្តនៅកម្ពុជា។',
     'footer.explore': 'ស្វែងយល់',
