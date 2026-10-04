@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Verification | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/account.css">
+  <link rel="stylesheet" href="css/apply.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="page-header">
+    <div class="container">
+      <h1 data-i18n="apply.title">Apply for Verification</h1>
+    </div>
+  </section>
+
+  <main class="container form-page">
+    <div class="back-row">
+      <button type="button" class="btn btn-gold back-button" id="back-button">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 5l-7 7 7 7"/>
+        </svg>
+        <span data-i18n="detail.back">Back</span>
+      </button>
+    </div>
+
+    <!-- Shown when there is nothing to fill in: already verified, or waiting -->
+    <div class="form-card wide-card" id="status-card" hidden>
+      <div class="status-block">
+        <span class="status-mark" id="status-mark"></span>
+        <h2 id="status-title"></h2>
+        <p id="status-text"></p>
+        <p class="admin-note" id="admin-note" hidden></p>
+        <div class="status-actions" id="status-actions"></div>
+      </div>
+    </div>
+
+    <div class="form-card wide-card" id="form-wrap" hidden>
+      <form id="apply-form">
+        <div class="alert alert-error" id="form-error" hidden></div>
+        <div class="alert alert-info" id="fix-note" hidden></div>
+
+        <p class="intro-text" data-i18n="apply.intro"></p>
+
+        <h2 class="section-title" data-i18n="apply.who">About you</h2>
+
+        <div class="field">
+          <label data-i18n="apply.role">I am applying as</label>
+          <div class="choice-list">
+            <label class="choice">
+              <input type="radio" name="requested_role" value="PRODUCER" checked>
+              <span>
+                <strong data-i18n="apply.producer">Producer</strong>
+                <small data-i18n="apply.producerHint"></small>
+              </span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="requested_role" value="BUSINESS">
+              <span>
+                <strong data-i18n="apply.business">Business</strong>
+                <small data-i18n="apply.businessHint"></small>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="legal_name" data-i18n="apply.legalName">Your full name</label>
+            <input class="input" id="legal_name" name="legal_name" required minlength="2" maxlength="150">
+            <p class="field-hint" data-i18n="apply.legalNameHint"></p>
+          </div>
+          <div class="field">
+            <label for="business_or_farm_name" data-i18n="apply.farmName">Farm or business name</label>
+            <input class="input" id="business_or_farm_name" name="business_or_farm_name" required minlength="2" maxlength="150">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="phone_number" data-i18n="apply.phone">Phone number</label>
+            <input class="input" id="phone_number" name="phone_number" required minlength="6" maxlength="30">
+          </div>
+          <div class="field">
+            <label for="region_id" data-i18n="form.province">Province</label>
+            <select class="input" id="region_id" name="region_id" required></select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="address_summary" data-i18n="apply.address">Where is your farm or workshop</label>
+          <textarea class="input" id="address_summary" name="address_summary" rows="2"
+                    required minlength="5" maxlength="800" data-i18n-placeholder="apply.addressHint"></textarea>
+          <p class="field-hint" data-i18n="apply.addressNote"></p>
+        </div>
+
+        <div class="field">
+          <label for="about_business" data-i18n="apply.about">Tell us about what you make</label>
+          <textarea class="input" id="about_business" name="about_business" rows="5"
+                    required minlength="20" maxlength="5000" data-i18n-placeholder="apply.aboutHint"></textarea>
+        </div>
+
+        <h2 class="section-title" data-i18n="apply.proof">Your documents</h2>
+        <p class="field-hint" data-i18n="apply.proofNote"></p>
+
+        <div class="field">
+          <label data-i18n="apply.idPhoto">Photo of your national ID</label>
+          <div class="photo-grid" id="grid-NATIONAL_ID"></div>
+          <input type="file" class="evidence-input" id="input-NATIONAL_ID"
+                 data-kind="NATIONAL_ID" accept="image/*" multiple hidden>
+        </div>
+
+        <div class="field">
+          <label data-i18n="apply.sitePhoto">Photos of your farm or workshop</label>
+          <div class="photo-grid" id="grid-FARM_OR_WORKSHOP"></div>
+          <input type="file" class="evidence-input" id="input-FARM_OR_WORKSHOP"
+                 data-kind="FARM_OR_WORKSHOP" accept="image/*" multiple hidden>
+        </div>
+
+        <div class="field">
+          <label data-i18n="apply.workPhoto">Photos of you making your product</label>
+          <p class="field-hint" data-i18n="apply.optional"></p>
+          <div class="photo-grid" id="grid-PRODUCTION_PROCESS"></div>
+          <input type="file" class="evidence-input" id="input-PRODUCTION_PROCESS"
+                 data-kind="PRODUCTION_PROCESS" accept="image/*" multiple hidden>
+        </div>
+
+        <div class="field">
+          <label data-i18n="apply.registration">Business registration paper</label>
+          <p class="field-hint" data-i18n="apply.optional"></p>
+          <div class="photo-grid" id="grid-BUSINESS_REGISTRATION"></div>
+          <input type="file" class="evidence-input" id="input-BUSINESS_REGISTRATION"
+                 data-kind="BUSINESS_REGISTRATION" accept="image/*" multiple hidden>
+        </div>
+
+        <p class="field-hint privacy-note" data-i18n="apply.privacy"></p>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-gold" id="submit-button" data-i18n="apply.send">Send application</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/apply.js"></script>
+</body>
+</html>
