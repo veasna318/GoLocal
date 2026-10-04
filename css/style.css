@@ -229,6 +229,8 @@ button, input, select { font: inherit; color: inherit; }
   font-size: 12px;
   font-weight: 700;
 }
+/* The same circle holds the uploaded picture when there is one. */
+img.avatar-letter { object-fit: cover; }
 .account-button .account-name {
   overflow: hidden;
   white-space: nowrap;

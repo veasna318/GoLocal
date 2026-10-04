@@ -21,7 +21,11 @@ function headerAccountArea() {
   return `
     <div class="account-menu">
       <button class="account-button">
-        <span class="avatar-letter">${esc(accountName().trim().charAt(0).toUpperCase())}</span>
+        ${auth.profile.avatar_path
+          ? `<img class="avatar-letter" src="${esc(imageUrl(auth.profile.avatar_path))}" alt=""
+                  onerror="this.replaceWith(Object.assign(document.createElement('span'),
+                  { className: 'avatar-letter', textContent: '${esc(accountName().trim().charAt(0).toUpperCase())}' }))">`
+          : `<span class="avatar-letter">${esc(accountName().trim().charAt(0).toUpperCase())}</span>`}
         <span class="account-name">${esc(accountName())}</span>
       </button>
       <div class="account-dropdown">

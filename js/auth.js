@@ -37,9 +37,11 @@ function isAdmin() {
   return !!auth.profile && auth.profile.platform_role === 'ADMIN';
 }
 
+// The person's own name, used by the header. The farm name belongs
+// to the profile page, not to the account menu.
 function accountName() {
   if (!auth.profile) return '';
-  return auth.profile.business_name || auth.profile.display_name;
+  return auth.profile.display_name || auth.profile.business_name || '';
 }
 
 async function signUp({ email, password, displayName, accountType }) {
