@@ -269,6 +269,8 @@ const TEXT = {
     'acct.saved': 'Your account has been saved.',
     'acct.notVerified': 'Your account is not verified yet, so your contact details stay hidden from buyers.',
 
+    'prod.owner': 'Owner',
+
     'footer.about': "Connecting buyers with Cambodia's trusted local producers, farmers and artisans.",
     'footer.explore': 'Explore',
     'footer.sellers': 'For Sellers',
@@ -541,6 +543,8 @@ const TEXT = {
     'acct.save': 'រក្សាទុកការផ្លាស់ប្ដូរ',
     'acct.saved': 'គណនីរបស់អ្នកត្រូវបានរក្សាទុក។',
     'acct.notVerified': 'គណនីរបស់អ្នកមិនទាន់ផ្ទៀងផ្ទាត់ទេ ដូច្នេះព័ត៌មានទំនាក់ទំនងនៅលាក់ពីអ្នកទិញ។',
+
+    'prod.owner': 'ម្ចាស់',
 
     'footer.about': 'ភ្ជាប់អ្នកទិញជាមួយអ្នកផលិត កសិករ និងសិប្បករក្នុងស្រុកដែលគួរឱ្យទុកចិត្តនៅកម្ពុជា។',
     'footer.explore': 'ស្វែងយល់',

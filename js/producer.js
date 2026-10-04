@@ -53,8 +53,11 @@ function renderContacts() {
 }
 
 function renderHead(rating, productCount) {
-  const name = sellerName(seller);
-  document.title = `${name} | GoLocal`;
+  const person = seller.display_name || '';
+  const farm = seller.business_name || '';
+  const place = localName(seller.region) || '';
+
+  document.title = `${farm || person} | GoLocal`;
   document.getElementById('profile-head').hidden = false;
 
   const cover = document.getElementById('profile-cover');
@@ -62,19 +65,21 @@ function renderHead(rating, productCount) {
   if (coverPath) cover.style.backgroundImage = `url('${imageUrl(coverPath)}')`;
   else cover.classList.add('no-cover');
 
-  const letter = name.trim().charAt(0).toUpperCase();
+  const letter = (person || farm).trim().charAt(0).toUpperCase();
   document.getElementById('profile-avatar').innerHTML = seller.avatar_path
     ? `<img src="${esc(imageUrl(seller.avatar_path))}" alt="" onerror="${FALLBACK_IMAGE}">`
     : `<span class="chip-letter">${esc(letter)}</span>`;
 
+  // The person's name is the heading. The farm and province sit under it.
   document.getElementById('profile-name').innerHTML =
-    `${esc(name)} ${seller.verification_status === 'VERIFIED' ? verifiedBadge() : ''}`;
+    `${esc(person || farm)} ${seller.verification_status === 'VERIFIED' ? verifiedBadge() : ''}`;
 
-  // The province line is left out when the seller has not set one.
-  const place = localName(seller.region) || '';
-  const placeLine = document.getElementById('profile-place');
-  placeLine.hidden = !place;
-  placeLine.innerHTML = place ? `${icon('pin')}${esc(place)}` : '';
+  const subLine = document.getElementById('profile-sub');
+  const parts = [];
+  if (farm) parts.push(`<span class="sub-farm">${esc(farm)}</span>`);
+  if (place) parts.push(`<span class="sub-place">${icon('pin')}${esc(place)}</span>`);
+  subLine.hidden = !parts.length;
+  subLine.innerHTML = parts.join('<span class="sub-dot">&#183;</span>');
 
   const rows = [
     ['prod.productCount', String(productCount)],
@@ -82,6 +87,7 @@ function renderHead(rating, productCount) {
     ['card.reviews', String(rating.review_count || 0)],
     ['spot.since', seller.established_year ? String(seller.established_year) : ''],
     ['prod.capacity', esc(seller.production_capacity)],
+    ['prod.owner', esc(person)],
   ];
 
   document.getElementById('profile-stats').innerHTML = rows
@@ -90,25 +96,30 @@ function renderHead(rating, productCount) {
     .join('');
 }
 
+// The short introduction goes in the About box. The farm story sits
+// under the farm photos instead.
 function renderStory() {
   const section = document.getElementById('profile-about');
-  const story = seller.farm_story || seller.bio;
-  if (!story) {
-    section.hidden = true;
-    return;
-  }
-  section.hidden = false;
-  document.getElementById('profile-story').textContent = story;
+  const intro = seller.bio;
+  section.hidden = !intro;
+  if (intro) document.getElementById('profile-story').textContent = intro;
 }
 
 function renderPhotos() {
   const section = document.getElementById('profile-photos');
+  const storyBox = document.getElementById('farm-story');
+  const story = seller.farm_story || '';
+
+  storyBox.hidden = !story;
+  storyBox.textContent = story;
+
+  // The section still shows when there is a story but no photos yet.
+  section.hidden = !sellerPhotos.length && !story;
   if (!sellerPhotos.length) {
-    section.hidden = true;
+    document.getElementById('photo-row').innerHTML = '';
     return;
   }
 
-  section.hidden = false;
   const row = document.getElementById('photo-row');
   row.innerHTML = sellerPhotos.map((photo, index) => `
     <button type="button" class="photo-tile" data-index="${index}"
