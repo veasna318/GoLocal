@@ -1,0 +1,190 @@
+/* Producer profile page.
+   Grid and section heading rules are declared here because home.css
+   is not loaded on this page. */
+
+.profile-page { padding: 18px 20px 60px; }
+
+/* Head */
+.profile-head {
+  margin-top: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.profile-cover {
+  height: 200px;
+  background: var(--green-800) center / cover no-repeat;
+}
+.profile-cover.no-cover {
+  background: linear-gradient(120deg, var(--green-900), var(--green-600));
+}
+
+.profile-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 0 24px;
+  margin-top: -36px;
+}
+
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--white);
+  background: var(--green-600);
+  box-shadow: var(--shadow-sm);
+}
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.profile-avatar .chip-letter {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--white);
+  font-size: 34px;
+  font-weight: 600;
+}
+
+.profile-id { flex: 1; padding-bottom: 6px; min-width: 0; }
+.profile-id h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 22px;
+  font-weight: 700;
+}
+.profile-place {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  color: var(--text-soft);
+  font-size: 12px;
+}
+.profile-place .icon { width: 14px; height: 14px; }
+
+.profile-flag { margin-bottom: 10px; }
+
+.profile-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 34px;
+  margin: 18px 0 0;
+  padding: 18px 24px 22px;
+  border-top: 1px solid var(--line);
+}
+.profile-stat dt {
+  color: var(--text-soft);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.profile-stat dd {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 3px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.profile-stat .stars .icon { width: 14px; height: 14px; }
+
+/* Story and contact */
+.profile-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+  margin-top: 22px;
+}
+
+.profile-about {
+  padding: 22px 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.profile-about h2 { font-size: 16px; font-weight: 600; }
+.profile-about p {
+  margin-top: 10px;
+  color: var(--text-soft);
+  white-space: pre-line;
+}
+
+.profile-contact { align-self: start; }
+
+/* Photos */
+.profile-photos { margin-top: 26px; }
+.profile-photos h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+
+.photo-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
+}
+
+.photo-tile {
+  position: relative;
+  flex: none;
+  width: 230px;
+  height: 160px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: zoom-in;
+  background: var(--cream-200);
+}
+.photo-tile img { width: 100%; height: 100%; object-fit: cover; }
+.photo-tile:hover img { transform: scale(1.04); }
+.photo-tile img { transition: transform 0.4s var(--ease); }
+
+.photo-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px 10px 8px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
+  color: var(--white);
+  font-size: 11px;
+  text-align: left;
+}
+
+/* Products */
+.profile-products { margin-top: 32px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.section-head h2 { font-size: 18px; font-weight: 600; }
+.section-sub { color: var(--text-soft); font-size: 12px; }
+
+.profile-products .product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.profile-products .empty-message { padding: 36px 0; text-align: center; }
+
+@media (max-width: 1024px) {
+  .profile-body { grid-template-columns: 1fr; }
+  .profile-products .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .profile-cover { height: 140px; }
+  .profile-bar { padding: 0 16px; }
+  .profile-avatar { width: 72px; height: 72px; }
+  .profile-id h1 { font-size: 18px; }
+  .profile-stats { padding: 16px; gap: 10px 22px; }
+  .photo-tile { width: 180px; height: 130px; }
+  .profile-products .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}

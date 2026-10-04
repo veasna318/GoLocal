@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producer | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="css/producer.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="search-band">
+    <div class="container">
+      <form class="search-band-form" id="search-form">
+        <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+        </svg>
+        <input class="input" id="search-box" data-i18n-placeholder="filter.search">
+      </form>
+    </div>
+  </section>
+
+  <main class="container profile-page">
+    <div class="alert alert-error" id="page-error" hidden></div>
+
+    <button type="button" class="btn btn-gold back-button" id="back-button">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 5l-7 7 7 7"/>
+      </svg>
+      <span data-i18n="detail.back">Back</span>
+    </button>
+
+    <section class="profile-head" id="profile-head" hidden>
+      <div class="profile-cover" id="profile-cover"></div>
+
+      <div class="profile-bar">
+        <div class="profile-avatar" id="profile-avatar"></div>
+
+        <div class="profile-id">
+          <h1 id="profile-name"></h1>
+          <p class="profile-place" id="profile-place"></p>
+        </div>
+
+        <button type="button" class="flag-button profile-flag" id="report-profile"
+                data-i18n-label="detail.report">&#9873;</button>
+      </div>
+
+      <dl class="profile-stats" id="profile-stats"></dl>
+    </section>
+
+    <div class="profile-body">
+      <section class="profile-about" id="profile-about" hidden>
+        <h2 data-i18n="prod.about">About this producer</h2>
+        <p id="profile-story"></p>
+      </section>
+
+      <aside class="info-card profile-contact" id="profile-contact" hidden>
+        <p class="info-label" data-i18n="prod.contact">Contact</p>
+        <div class="contact-links" id="contact-links"></div>
+      </aside>
+    </div>
+
+    <section class="profile-photos" id="profile-photos" hidden>
+      <h2 data-i18n="prod.photos">Farm and workshop</h2>
+      <div class="photo-row" id="photo-row"></div>
+    </section>
+
+    <section class="profile-products">
+      <div class="section-head">
+        <h2 data-i18n="prod.products">Products</h2>
+        <p class="section-sub" id="product-count"></p>
+      </div>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <!-- Full size photo viewer -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" hidden>
+    <button type="button" class="lightbox-close" id="lightbox-close" data-i18n-label="detail.close">&times;</button>
+    <button type="button" class="lightbox-step" id="lightbox-prev" data-i18n-label="detail.previous">&#8249;</button>
+    <img id="lightbox-image" alt="">
+    <button type="button" class="lightbox-step" id="lightbox-next" data-i18n-label="detail.next">&#8250;</button>
+    <p class="lightbox-count" id="lightbox-count"></p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/producer.js"></script>
+</body>
+</html>

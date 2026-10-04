@@ -228,6 +228,15 @@ const TEXT = {
     'browse.sortRating': 'Highest rated',
     'browse.loadMore': 'Load more',
 
+    'prod.about': 'About this producer',
+    'prod.contact': 'Contact',
+    'prod.photos': 'Farm and workshop',
+    'prod.products': 'Products',
+    'prod.productCount': 'Products',
+    'prod.capacity': 'Capacity',
+    'prod.noProducts': 'This producer has no published products yet.',
+    'prod.notFound': 'This producer could not be found.',
+
     'footer.about': "Connecting buyers with Cambodia's trusted local producers, farmers and artisans.",
     'footer.explore': 'Explore',
     'footer.sellers': 'For Sellers',
@@ -459,6 +468,15 @@ const TEXT = {
     'browse.sortPriceHigh': 'តម្លៃ៖ ខ្ពស់ទៅទាប',
     'browse.sortRating': 'វាយតម្លៃខ្ពស់បំផុត',
     'browse.loadMore': 'មើលបន្ថែម',
+
+    'prod.about': 'អំពីអ្នកផលិតនេះ',
+    'prod.contact': 'ទំនាក់ទំនង',
+    'prod.photos': 'កសិដ្ឋាន និងសិប្បកម្ម',
+    'prod.products': 'ផលិតផល',
+    'prod.productCount': 'ផលិតផល',
+    'prod.capacity': 'សមត្ថភាពផលិត',
+    'prod.noProducts': 'អ្នកផលិតនេះមិនទាន់មានផលិតផលបង្ហោះទេ។',
+    'prod.notFound': 'រកមិនឃើញអ្នកផលិតនេះទេ។',
 
     'footer.about': 'ភ្ជាប់អ្នកទិញជាមួយអ្នកផលិត កសិករ និងសិប្បករក្នុងស្រុកដែលគួរឱ្យទុកចិត្តនៅកម្ពុជា។',
     'footer.explore': 'ស្វែងយល់',
