@@ -342,3 +342,15 @@ async function initProductForm() {
 }
 
 initProductForm();
+
+// Category and province names come from the database, so the lists have to
+// be rebuilt when the language changes. The chosen values are kept.
+window.addEventListener('langchange', async () => {
+  const picked = { category_id: form.category_id.value, region_id: form.region_id.value };
+  await fillDropdowns();
+  Object.entries(picked).forEach(([field, value]) => {
+    if (value) form[field].value = value;
+  });
+  updateFillButtons();
+  applyTranslations();
+});

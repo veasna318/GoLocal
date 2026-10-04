@@ -288,6 +288,15 @@ async function initApplyPage() {
 
 initApplyPage();
 
-window.addEventListener('langchange', () => {
+// The province names come from the database, so the list has to be
+// rebuilt when the language changes. The chosen province is kept.
+window.addEventListener('langchange', async () => {
   KINDS.forEach(renderGrid);
+
+  const chosen = form.region_id ? form.region_id.value : '';
+  if (form.region_id) {
+    await fillProvinces();
+    if (chosen) form.region_id.value = chosen;
+  }
+  applyTranslations();
 });
