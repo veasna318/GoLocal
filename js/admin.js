@@ -301,6 +301,90 @@ async function loadBoosts() {
   });
 }
 
+// Seller accounts. This queue is not a queue of problems: it lists every
+// seller so an administrator can suspend one without waiting for a report.
+let sellers = [];
+
+// A suspended account keeps its old verification status in the database,
+// so is_active decides which label to show.
+function statusKey(profile) {
+  return profile.is_active ? profile.verification_status : 'SUSPENDED';
+}
+
+function sellerCard(profile) {
+  const key = statusKey(profile);
+  const role = profile.platform_role === 'BUSINESS' ? t('apply.business') : t('apply.producer');
+  const place = localName(profile.region) || '';
+  const under = [profile.business_name, role, place].filter(Boolean).join(' · ');
+
+  return `
+    <article class="seller-row" data-id="${esc(profile.id)}" data-active="${profile.is_active}">
+      <div class="seller-main">
+        <h2>${esc(profile.display_name || '')}</h2>
+        <p class="muted">${esc(under)}</p>
+      </div>
+      <span class="status-tag status-${key}">${t('adm.vs.' + key)}</span>
+      <div class="seller-buttons">
+        <a class="btn btn-outline btn-sm" href="producer.html?id=${esc(profile.id)}"
+           target="_blank">${t('adm.view')}</a>
+        <button type="button" class="btn btn-outline btn-sm ${profile.is_active ? 'danger' : ''}"
+                data-act="${profile.is_active ? 'suspend' : 'restore'}">
+          ${t(profile.is_active ? 'adm.suspend' : 'adm.restore')}
+        </button>
+      </div>
+    </article>`;
+}
+
+// The seller list is small, so it is filtered here instead of in the database.
+function drawSellers() {
+  const list = document.getElementById('seller-list');
+  const search = document.getElementById('seller-search').value.trim().toLowerCase();
+
+  if (!sellers.length) { list.innerHTML = emptyMessage('adm.noSellers'); return; }
+
+  const shown = search
+    ? sellers.filter((p) => `${p.display_name || ''} ${p.business_name || ''}`
+        .toLowerCase().includes(search))
+    : sellers;
+
+  if (!shown.length) { list.innerHTML = emptyMessage('adm.noMatch'); return; }
+  list.innerHTML = shown.map(sellerCard).join('');
+
+  list.querySelectorAll('.seller-buttons button').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const row = button.closest('.seller-row');
+      const makeActive = button.dataset.act === 'restore';
+      if (!confirm(t(makeActive ? 'adm.confirmRestore' : 'adm.confirmSuspend'))) return;
+
+      button.disabled = true;
+      const { error } = await db.rpc('set_account_active', {
+        p_user_id: row.dataset.id,
+        p_active: makeActive,
+      });
+      if (error) { showError(error.message); button.disabled = false; return; }
+      loadSellers();
+    });
+  });
+}
+
+async function loadSellers() {
+  const list = document.getElementById('seller-list');
+  list.innerHTML = `<p class="muted">${t('adm.loading')}</p>`;
+
+  const { data, error } = await db
+    .from('profiles')
+    .select(`id, display_name, business_name, platform_role, verification_status,
+             is_active, region:regions(name_en, name_km)`)
+    .in('platform_role', ['PRODUCER', 'BUSINESS'])
+    .order('display_name');
+
+  if (error) { list.innerHTML = emptyMessage('error.load'); return; }
+
+  sellers = data || [];
+  document.getElementById('count-sellers').textContent = sellers.length;
+  drawSellers();
+}
+
 function setUpTabs() {
   document.querySelectorAll('.admin-tab').forEach((tab) => {
     tab.addEventListener('click', () => {
@@ -314,7 +398,7 @@ function setUpTabs() {
 }
 
 async function loadAll() {
-  await Promise.all([loadApplications(), loadReports(), loadBoosts()]);
+  await Promise.all([loadApplications(), loadReports(), loadBoosts(), loadSellers()]);
 }
 
 async function initAdminPage() {
@@ -324,6 +408,7 @@ async function initAdminPage() {
     return;
   }
   setUpTabs();
+  document.getElementById('seller-search').addEventListener('input', drawSellers);
   await loadAll();
   applyTranslations();
 }

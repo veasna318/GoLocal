@@ -37,11 +37,21 @@
         <span data-i18n="adm.boosts">Promotions</span>
         <span class="tab-count" id="count-boosts">0</span>
       </button>
+      <button type="button" class="admin-tab" data-pane="sellers">
+        <span data-i18n="adm.sellers">Seller accounts</span>
+        <span class="tab-count" id="count-sellers">0</span>
+      </button>
     </nav>
 
     <section class="admin-pane" id="pane-applications"></section>
     <section class="admin-pane" id="pane-reports" hidden></section>
     <section class="admin-pane" id="pane-boosts" hidden></section>
+
+    <section class="admin-pane" id="pane-sellers" hidden>
+      <input type="search" id="seller-search" class="seller-search"
+             data-i18n-placeholder="adm.search" placeholder="Search by name or farm name">
+      <div id="seller-list"></div>
+    </section>
   </main>
 
   <div id="site-footer"></div>

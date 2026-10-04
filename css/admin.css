@@ -85,6 +85,38 @@
 .status-NEEDS_MORE_INFO { background: #fdf0d8; color: #8a6210; }
 .status-APPROVED { background: var(--green-100); color: var(--green-800); }
 .status-REJECTED { background: #fdecec; color: #a3302d; }
+.status-VERIFIED { background: var(--green-100); color: var(--green-800); }
+.status-NOT_APPLIED { background: var(--cream-100); color: var(--text-soft); }
+.status-SUSPENDED { background: #fdecec; color: #a3302d; }
+
+/* Seller account list */
+.seller-search {
+  width: 100%;
+  max-width: 420px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-family: inherit;
+  font-size: var(--body);
+}
+.seller-search:focus { outline: none; border-color: var(--green-600); }
+
+#seller-list { display: grid; gap: 10px; }
+
+.seller-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.seller-row h2 { font-size: var(--sm); font-weight: 600; }
+.seller-main { flex: 1 1 auto; min-width: 0; }
+.seller-main p { margin-top: 2px; }
+.seller-buttons { display: flex; gap: 8px; flex-shrink: 0; }
 
 /* Evidence photos */
 .evidence-row {
@@ -124,4 +156,9 @@
   .admin-facts { gap: 10px 20px; }
   .evidence-tile { width: calc(50% - 5px); }
   .admin-actions .btn { flex: 1 1 100%; justify-content: center; }
+
+  .seller-row { flex-wrap: wrap; padding: 14px; }
+  .seller-main { flex: 1 1 100%; }
+  .seller-buttons { flex: 1 1 100%; }
+  .seller-buttons .btn { flex: 1 1 0; justify-content: center; }
 }
