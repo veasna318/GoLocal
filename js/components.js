@@ -18,7 +18,9 @@ const ICONS = {
   left: '<path d="M15 5l-7 7 7 7"/>',
   right: '<path d="M9 5l7 7-7 7"/>',
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  'arrow-left': '<path d="M19 12H5M11 18l-6-6 6-6"/>',
   up: '<path d="M12 19V5M6 11l6-6 6 6"/>',
+  flag: '<path d="M5 21V4M5 5h11l-1.6 3.5L16 12H5"/>',
 };
 
 function icon(name, className = '') {

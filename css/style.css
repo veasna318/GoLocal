@@ -464,7 +464,7 @@ img.avatar-letter { object-fit: cover; }
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 30%, rgba(0, 0, 0, 0.7));
 }
 .request-card-tags { position: relative; display: flex; gap: 6px; }
-.request-card-media h3 { position: relative; color: var(--white); font-size: 14px; font-weight: 600; }
+.request-card-media h3 { position: relative; color: var(--white); font-size: var(--body); font-weight: 600; }
 .request-card-body { display: flex; flex-direction: column; gap: 12px; padding: 12px 14px 14px; flex: 1; }
 
 .seller-row { display: flex; align-items: center; gap: 10px; }
@@ -477,9 +477,9 @@ img.avatar-letter { object-fit: cover; }
   background: var(--cream-200);
 }
 .seller-row-text { display: flex; flex-direction: column; min-width: 0; }
-.seller-row-text strong { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.seller-row-text small { display: flex; align-items: center; gap: 3px; color: var(--text-soft); font-size: 11px; }
-.seller-row-rating { display: flex; align-items: center; gap: 3px; margin-left: auto; font-size: 12px; font-weight: 600; }
+.seller-row-text strong { font-size: var(--xs); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.seller-row-text small { display: flex; align-items: center; gap: 3px; color: var(--text-soft); font-size: var(--meta); }
+.seller-row-rating { display: flex; align-items: center; gap: 3px; margin-left: auto; font-size: var(--xs); font-weight: 600; }
 
 .request-stats {
   display: grid;
@@ -490,10 +490,10 @@ img.avatar-letter { object-fit: cover; }
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
-.request-stats dt { color: var(--text-soft); font-size: 10px; }
-.request-stats dd { margin: 0; font-size: 12px; font-weight: 600; }
+.request-stats dt { color: var(--text-soft); font-size: var(--meta); }
+.request-stats dd { margin: 0; font-size: var(--xs); font-weight: 600; }
 .request-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
-.province-list { display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--green-600); font-size: 11px; }
+.province-list { display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--green-600); font-size: var(--meta); }
 .province-list span { display: inline-flex; align-items: center; gap: 3px; }
 
 /* Loading placeholders */

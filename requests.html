@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Board | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="css/requests.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <!-- Back and search, on the same dark strip as the rest of the top area -->
+  <div class="board-top">
+    <div class="container board-top-inner">
+      <button type="button" class="btn btn-green btn-sm" id="back-button">
+        <span data-icon="arrow-left"></span><span data-i18n="detail.back">Back</span>
+      </button>
+      <form class="search-box" id="search-form" role="search">
+        <span class="search-icon" data-icon="search"></span>
+        <input type="search" id="search-input" data-i18n-placeholder="filter.search" placeholder="Search">
+      </form>
+    </div>
+  </div>
+
+  <section class="board-hero">
+    <div class="container">
+      <h1 data-i18n="req.boardTitle">Request Board</h1>
+      <div class="region-bar" id="region-chips"></div>
+    </div>
+  </section>
+
+  <main class="container board-main">
+    <div class="content-panel">
+      <div class="section-head">
+        <div>
+          <h2 data-i18n="req.boardHeading">Open requests</h2>
+          <p class="section-sub" data-i18n="req.boardSub">What local businesses are looking to buy</p>
+        </div>
+        <span class="result-count" id="result-count"></span>
+      </div>
+
+      <div class="request-grid" id="request-grid"></div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <!-- Request detail, shown without leaving the board -->
+  <div class="req-modal" id="req-modal" role="dialog" aria-modal="true" hidden>
+    <div class="req-modal-card" id="req-modal-card">
+      <button type="button" class="req-modal-close" id="req-modal-close"
+              data-i18n-label="detail.close">&times;</button>
+      <div class="req-modal-left" id="req-modal-left"></div>
+      <aside class="req-modal-side" id="req-modal-side"></aside>
+    </div>
+  </div>
+
+  <!-- Full size photo viewer, shared with the product page -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" hidden>
+    <button type="button" class="lightbox-close" id="lightbox-close" data-i18n-label="detail.close">&times;</button>
+    <button type="button" class="lightbox-step" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+    <img id="lightbox-image" alt="">
+    <button type="button" class="lightbox-step" id="lightbox-next" aria-label="Next">&#8250;</button>
+    <span class="lightbox-count" id="lightbox-count"></span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/requests.js"></script>
+</body>
+</html>
