@@ -149,9 +149,16 @@ button, input, select { font: inherit; color: inherit; }
   gap: 32px;
   min-height: 64px;
 }
-.brand { display: flex; flex-direction: column; line-height: 1.1; }
-/* The logo replaces the old text wordmark, kept at the same height. */
-.brand-logo { height: 24px; width: auto; }
+.brand { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.1; }
+/* The logo replaces the old text wordmark, kept at the same height.
+   align-self stops the flex column from stretching it sideways. */
+.brand-logo {
+  align-self: flex-start;
+  height: 24px;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+}
 .footer-logo { height: 26px; margin-bottom: 10px; }
 .brand-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
 .brand-name span { color: var(--gold-500); }
