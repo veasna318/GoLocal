@@ -35,31 +35,11 @@ function reqBudgetText(r) {
   return money(r.budget_min ?? r.budget_max);
 }
 
-function reqContactLink(kind, value) {
-  const clean = value.trim();
-  if (kind === 'phone') return `tel:${clean.replace(/\s/g, '')}`;
-  if (kind === 'email') return `mailto:${clean}`;
-  if (clean.startsWith('http')) return clean;
-  if (kind === 'facebook') return `https://facebook.com/${clean.replace(/^@/, '')}`;
-  return `https://t.me/${clean.replace(/^@/, '').replace(/\s/g, '')}`;
-}
-
 function reqContactBlock(business) {
   if (business.verification_status !== 'VERIFIED') {
     return `<p class="no-contact">${t('detail.noContact')}</p>`;
   }
-  const kinds = [
-    ['facebook', business.contact_facebook],
-    ['phone', business.contact_phone],
-    ['telegram', business.contact_telegram],
-    ['email', business.contact_email],
-  ].filter(([, value]) => value);
-
-  if (!kinds.length) return `<p class="no-contact">${t('detail.noContact')}</p>`;
-
-  return `<div class="contact-links">${kinds.map(([kind, value]) => `
-    <a class="contact-link contact-${kind}" href="${esc(reqContactLink(kind, value))}"
-       target="_blank" rel="noopener noreferrer">${esc(value)}</a>`).join('')}</div>`;
+  return `<div class="contact-links">${contactLinksHtml(business)}</div>`;
 }
 
 // The page may not have the modal markup, so put it there once.

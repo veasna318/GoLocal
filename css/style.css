@@ -514,6 +514,37 @@ img.avatar-letter { object-fit: cover; }
 .province-list { display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--green-600); font-size: var(--meta); }
 .province-list span { display: inline-flex; align-items: center; gap: 3px; }
 
+/* Contact buttons, shown on product, producer and request pages */
+.contact-links { display: grid; gap: 8px; margin-top: 16px; }
+
+/* Each button carries its own mark, so the name sits beside it rather
+   than centred on its own. */
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--xs);
+  color: var(--white);
+  transition: filter 0.2s;
+}
+.contact-link:hover { filter: brightness(1.08); }
+.contact-link span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.contact-mark { width: 17px; height: 17px; flex: none; }
+
+.contact-facebook { background: #1877f2; }
+.contact-phone { background: #25b14c; }
+.contact-telegram { background: #29a9eb; }
+.contact-email { background: var(--white); color: #c5221f; }
+.contact-email span { color: var(--green-900); }
+.no-contact { color: rgba(255, 255, 255, 0.7); font-size: var(--xs); text-align: center; }
+
 /* Loading placeholders */
 .skeleton {
   border-radius: var(--radius);

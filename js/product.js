@@ -15,29 +15,8 @@ function showError(key) {
 }
 
 // Builds a safe link for each way of contacting the seller.
-function contactLink(kind, value) {
-  const clean = value.trim();
-  if (kind === 'phone') return `tel:${clean.replace(/\s/g, '')}`;
-  if (kind === 'email') return `mailto:${clean}`;
-  if (clean.startsWith('http')) return clean;
-  if (kind === 'facebook') return `https://facebook.com/${clean.replace(/^@/, '')}`;
-  return `https://t.me/${clean.replace(/^@/, '').replace(/\s/g, '')}`;
-}
-
 function renderContacts(seller) {
-  const kinds = [
-    ['facebook', seller.contact_facebook],
-    ['phone', seller.contact_phone],
-    ['telegram', seller.contact_telegram],
-    ['email', seller.contact_email],
-  ];
-
-  const box = document.getElementById('contact-links');
-  const links = kinds.filter(([, value]) => value).map(([kind, value]) => `
-    <a class="contact-link contact-${kind}" href="${esc(contactLink(kind, value))}"
-       target="_blank" rel="noopener noreferrer">${esc(value)}</a>`);
-
-  box.innerHTML = links.length ? links.join('') : `<p class="no-contact">${t('detail.noContact')}</p>`;
+  document.getElementById('contact-links').innerHTML = contactLinksHtml(seller);
 }
 
 // Shows one photo in the big frame and marks its thumbnail.

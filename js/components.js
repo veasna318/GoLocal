@@ -21,13 +21,50 @@ const ICONS = {
   'arrow-left': '<path d="M19 12H5M11 18l-6-6 6-6"/>',
   up: '<path d="M12 19V5M6 11l6-6 6 6"/>',
   flag: '<path d="M5 21V4M5 5h11l-1.6 3.5L16 12H5"/>',
+
+  // Marks for the ways a seller can be contacted.
+  facebook: '<path d="M13.4 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.6V3.6c-.3 0-1.33-.1-2.52-.1-2.5 0-4.2 1.52-4.2 4.32V9.9H7.2V13h2.68v8z"/>',
+  telegram: '<path d="M21.6 4.2 2.9 11.4c-.95.37-.94 1.2.03 1.5l4.75 1.48 1.83 5.6c.22.6.1.84.73.84.48 0 .7-.22 .97-.48l2.3-2.24 4.8 3.54c.88.49 1.5.24 1.72-.81l3.1-14.6c.32-1.29-.5-1.87-1.53-1.4zM8.6 14.5l10.3-6.5c.5-.3.96-.14.58.19L10.9 16.1l-.34 3.7z"/>',
+  phone: '<path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.05-.27 1.15.38 2.4.59 3.7.59.58 0 1.05.47 1.05 1.05V20c0 .58-.47 1.05-1.05 1.05C10.4 21.05 3 13.6 3 4.4 3 3.82 3.47 3.35 4.05 3.35H7.6c.58 0 1.05.47 1.05 1.05 0 1.3.21 2.55.59 3.7.12.36.04.74-.27 1.05z"/>',
+  email: '<path d="M3.6 5.4h16.8c.9 0 1.6.7 1.6 1.6v10c0 .9-.7 1.6-1.6 1.6h-2.1V9.9L12 13.9 5.7 9.9v8.7H3.6c-.9 0-1.6-.7-1.6-1.6V7c0-.9.7-1.6 1.6-1.6zm0 1.8 8.4 5.3 8.4-5.3z"/>',
 };
 
+// These are solid shapes rather than outlines, so they are drawn filled.
+const FILLED_ICONS = ['star', 'facebook', 'telegram', 'phone', 'email'];
+
 function icon(name, className = '') {
-  const filled = name === 'star';
+  const filled = FILLED_ICONS.includes(name);
   return `<svg class="icon ${className}" viewBox="0 0 24 24" aria-hidden="true"
     fill="${filled ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="${filled ? 0 : 2}"
     stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
+}
+
+// The four ways a seller or business can be reached, in the order they
+// are shown. One copy, used by every page that lists contacts.
+const CONTACT_KINDS = ['facebook', 'phone', 'telegram', 'email'];
+
+function contactUrl(kind, value) {
+  const clean = value.trim();
+  if (kind === 'phone') return `tel:${clean.replace(/\s/g, '')}`;
+  if (kind === 'email') return `mailto:${clean}`;
+  if (clean.startsWith('http')) return clean;
+  if (kind === 'facebook') return `https://facebook.com/${clean.replace(/^@/, '')}`;
+  return `https://t.me/${clean.replace(/^@/, '').replace(/\s/g, '')}`;
+}
+
+// Builds the stack of contact buttons, each with its own mark.
+function contactLinksHtml(profile) {
+  const found = CONTACT_KINDS
+    .map((kind) => [kind, profile['contact_' + kind] || ''])
+    .filter(([, value]) => value.trim());
+
+  if (!found.length) return `<p class="no-contact">${t('detail.noContact')}</p>`;
+
+  return found.map(([kind, value]) => `
+    <a class="contact-link contact-${kind}" href="${esc(contactUrl(kind, value))}"
+       target="_blank" rel="noopener noreferrer">
+      ${icon(kind, 'contact-mark')}<span>${esc(value)}</span>
+    </a>`).join('');
 }
 
 function stars(rating) {

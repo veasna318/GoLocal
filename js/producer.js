@@ -17,16 +17,6 @@ function sellerName(person) {
   return person.business_name || person.display_name || '';
 }
 
-// Builds a safe link for each way of contacting the seller.
-function contactLink(kind, value) {
-  const clean = value.trim();
-  if (kind === 'phone') return `tel:${clean.replace(/\s/g, '')}`;
-  if (kind === 'email') return `mailto:${clean}`;
-  if (clean.startsWith('http')) return clean;
-  if (kind === 'facebook') return `https://facebook.com/${clean.replace(/^@/, '')}`;
-  return `https://t.me/${clean.replace(/^@/, '').replace(/\s/g, '')}`;
-}
-
 // Contact details are only shown for verified sellers.
 function renderContacts() {
   const card = document.getElementById('profile-contact');
@@ -37,19 +27,8 @@ function renderContacts() {
     return;
   }
 
-  const kinds = [
-    ['facebook', seller.contact_facebook],
-    ['phone', seller.contact_phone],
-    ['telegram', seller.contact_telegram],
-    ['email', seller.contact_email],
-  ].filter(([, value]) => value);
-
   card.hidden = false;
-  box.innerHTML = kinds.length
-    ? kinds.map(([kind, value]) => `
-        <a class="contact-link contact-${kind}" href="${esc(contactLink(kind, value))}"
-           target="_blank" rel="noopener noreferrer">${esc(value)}</a>`).join('')
-    : `<p class="no-contact">${t('detail.noContact')}</p>`;
+  box.innerHTML = contactLinksHtml(seller);
 }
 
 function renderHead(rating, productCount) {

@@ -69,22 +69,7 @@
 .info-row .in-stock { color: var(--gold-400); }
 .info-row .stars { display: inline-flex; }
 
-.contact-links { display: grid; gap: 8px; margin-top: 16px; }
-.contact-link {
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  text-align: center;
-  color: var(--white);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.contact-facebook { background: #1877f2; }
-.contact-phone { background: #2fb457; }
-.contact-telegram { background: #34a4dd; }
-.contact-email { background: var(--white); color: var(--green-900); text-decoration: underline; }
-.no-contact { color: rgba(255, 255, 255, 0.7); font-size: 12px; text-align: center; }
+/* Contact buttons now live in style.css: three pages use them. */
 
 .seller-chip { margin-top: 16px; }
 .chip-inner {
