@@ -87,7 +87,7 @@ function renderHead(rating, productCount) {
     ['card.reviews', String(rating.review_count || 0)],
     ['spot.since', seller.established_year ? String(seller.established_year) : ''],
     ['prod.capacity', esc(seller.production_capacity)],
-    ['prod.owner', esc(person)],
+    ['prod.owner', esc(farm)],
   ];
 
   document.getElementById('profile-stats').innerHTML = rows
