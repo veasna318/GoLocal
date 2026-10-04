@@ -254,11 +254,20 @@
   .section-head { flex-wrap: wrap; }
   .section-head .sort-label { margin-left: 0; width: 100%; }
   .profile-cover { height: 140px; }
-  .profile-bar { padding: 0 16px; gap: 12px; }
-  .profile-id { padding-top: 26px; }
-  .profile-actions { margin-top: 26px; }
-  .profile-avatar { width: 72px; height: 72px; }
+
+  /* On a phone the name needs its own row, or it runs over the cover. */
+  .profile-bar {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0 16px;
+    margin-top: -40px;
+  }
+  .profile-avatar { order: 1; width: 72px; height: 72px; }
+  .profile-actions { order: 2; margin-top: 46px; margin-left: auto; }
+  .profile-id { order: 3; flex: 1 1 100%; padding-top: 2px; }
   .profile-id h1 { font-size: 18px; }
+  .profile-sub { font-size: 12px; }
   .profile-stats { padding: 16px; gap: 10px 22px; }
   .profile-bio, .profile-certs { margin: 12px 16px 0; }
   .photo-tile { width: 180px; height: 130px; }

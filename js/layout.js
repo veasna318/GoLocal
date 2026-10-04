@@ -48,7 +48,7 @@ function renderHeader() {
     <header class="site-header">
       <div class="container header-inner">
         <a href="index.html" class="brand">
-          <span class="brand-name">Go<span>Local</span></span>
+          <img class="brand-logo" src="assets/images/logo.png" alt="GoLocal">
           <small class="brand-tagline">${t('header.tagline')}</small>
         </a>
 
@@ -114,7 +114,7 @@ function renderFooter() {
       <div class="container">
         <div class="footer-grid">
           <div>
-            <span class="brand-name">Go<span>Local</span></span>
+            <img class="brand-logo footer-logo" src="assets/images/logo.png" alt="GoLocal">
             <p>${t('footer.about')}</p>
           </div>
           <div>
