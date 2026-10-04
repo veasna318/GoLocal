@@ -253,6 +253,8 @@
 
 /* Calls to action */
 .cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+/* A verified seller only sees their own card, so it takes the full row. */
+.cta-grid.one-card { grid-template-columns: 1fr; }
 .cta-card {
   display: flex;
   flex-direction: column;
