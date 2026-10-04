@@ -28,6 +28,25 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   --font: 'Poppins', 'Noto Sans Khmer', system-ui, sans-serif;
+
+  /* One type scale for the whole site. The phone sizes are set once,
+     in the media query below, so every heading shrinks together. */
+  --h1: 22px;   /* page title */
+  --h2: 24px;   /* feature heading on a band */
+  --h3: 18px;   /* section heading */
+  --h4: 14px;   /* small panel heading */
+  --body: 14px;
+  --sm: 13px;   /* compact body, buttons, card titles */
+  --xs: 12px;   /* secondary text */
+  --meta: 11px; /* badges, counts, hints */
+}
+
+@media (max-width: 760px) {
+  :root {
+    --h1: 20px;
+    --h2: 20px;
+    --h3: 16px;
+  }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -160,8 +179,6 @@ button, input, select { font: inherit; color: inherit; }
   object-fit: contain;
 }
 .footer-logo { height: 26px; margin-bottom: 10px; }
-.brand-name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--white); }
-.brand-name span { color: var(--gold-500); }
 
 .header-menu { display: flex; align-items: center; gap: 32px; margin-left: auto; }
 .main-nav { display: flex; gap: 28px; }
@@ -550,7 +567,7 @@ img.avatar-letter { object-fit: cover; }
 
 /* Page sections used outside the home page */
 .section { padding: 40px 0 56px; }
-.section-title { margin: 28px 0 14px; font-size: 16px; font-weight: 600; }
+.section-title { margin: 28px 0 14px; font-size: var(--h3); font-weight: 600; }
 .section-title:first-child { margin-top: 0; }
 
 /* Light outline button for the dark header */

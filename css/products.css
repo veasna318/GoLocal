@@ -11,7 +11,7 @@
   padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
 }
-.browse-head h1 { font-size: 20px; font-weight: 700; }
+.browse-head h1 { font-size: var(--h1); font-weight: 700; }
 .result-count { margin-top: 2px; color: var(--text-soft); font-size: 12px; }
 
 .browse-tools { display: flex; align-items: center; gap: 12px; }
@@ -20,7 +20,7 @@
 .filter-toggle { display: none; }
 
 .browse-pickers { margin-top: 18px; }
-.picker-title { font-size: 14px; font-weight: 600; }
+.picker-title { font-size: var(--h4); font-weight: 600; }
 .browse-pickers .category-row { margin-top: 10px; }
 .browse-pickers .category-card { border: 2px solid transparent; cursor: pointer; font-family: inherit; }
 .browse-pickers .region-bar { margin-top: 14px; }
@@ -29,7 +29,7 @@
 
 .filters { position: sticky; top: 90px; }
 .filters-head { display: flex; align-items: baseline; justify-content: space-between; }
-.filters-head h2 { font-size: 14px; font-weight: 600; }
+.filters-head h2 { font-size: var(--h4); font-weight: 600; }
 .link-button {
   padding: 0;
   border: 0;

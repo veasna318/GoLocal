@@ -17,7 +17,7 @@
 .breadcrumb a:hover { color: var(--green-600); }
 .breadcrumb .sep { margin: 0 4px; }
 
-.detail-title { margin-top: 8px; font-size: 22px; font-weight: 700; }
+.detail-title { margin-top: 8px; font-size: var(--h1); font-weight: 700; }
 
 .detail-top { display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; margin-top: 16px; align-items: start; }
 
@@ -115,10 +115,10 @@
 .seller-chip-dark .chip-inner { border-color: transparent; }
 
 .description { margin-top: 20px; }
-.description h2 { font-size: 14px; font-weight: 600; }
+.description h2 { font-size: var(--h4); font-weight: 600; }
 .description p { margin-top: 6px; max-width: 760px; color: var(--text-soft); font-size: 13px; line-height: 1.7; }
 
-.farm-heading { margin-top: 40px; font-size: 20px; font-weight: 700; text-align: center; }
+.farm-heading { margin-top: 40px; font-size: var(--h2); font-weight: 700; text-align: center; }
 .farm-band {
   margin-top: 20px;
   padding: 48px 0;
@@ -130,14 +130,14 @@
 }
 .farm-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
 .farm-label { color: var(--gold-400); font-size: 12px; font-weight: 600; }
-.farm-inner h2 { margin-top: 6px; font-size: 20px; font-weight: 700; }
+.farm-inner h2 { margin-top: 6px; font-size: var(--h2); font-weight: 700; }
 .farm-story { margin-top: 10px; max-width: 460px; color: rgba(255, 255, 255, 0.85); font-size: 13px; line-height: 1.7; }
 .farm-actions { margin-top: 20px; }
 .farm-image img { width: 100%; border-radius: var(--radius); aspect-ratio: 16 / 10; object-fit: cover; }
 
 .reviews { padding: 48px 0 16px; }
 .reviews-grid { display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: start; }
-.review-summary h2 { font-size: 14px; font-weight: 600; }
+.review-summary h2 { font-size: var(--h4); font-weight: 600; }
 .review-summary .score { font-size: 38px; font-weight: 700; line-height: 1.1; }
 .review-summary .score-of { margin-top: -6px; color: var(--text-soft); font-size: 12px; }
 .review-summary .stars { margin-top: 4px; }
@@ -175,7 +175,7 @@
 .review-card p { margin-top: 6px; font-size: 12px; line-height: 1.6; }
 
 .leave-review { margin-top: 24px; padding: 20px; border-radius: var(--radius); background: var(--green-900); color: var(--white); }
-.leave-review h3 { font-size: 14px; font-weight: 600; }
+.leave-review h3 { font-size: var(--h4); font-weight: 600; }
 .rating-label { margin-top: 10px; color: rgba(255, 255, 255, 0.7); font-size: 12px; }
 .star-picker { display: flex; gap: 4px; margin-top: 4px; }
 .star-picker button {

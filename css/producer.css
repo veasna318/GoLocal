@@ -57,7 +57,7 @@
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  font-size: 22px;
+  font-size: var(--h1);
   font-weight: 700;
 }
 .profile-sub {
@@ -157,7 +157,7 @@
 
 /* Farm photos and story, in the left column */
 .profile-photos { min-width: 0; }
-.profile-photos h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.profile-photos h2 { font-size: var(--h3); font-weight: 600; margin-bottom: 12px; }
 
 .photo-row {
   display: flex;
@@ -232,7 +232,7 @@
   border-radius: 999px;
   font-size: 12px;
 }
-.section-head h2 { font-size: 18px; font-weight: 600; }
+.section-head h2 { font-size: var(--h3); font-weight: 600; }
 .section-sub { color: var(--text-soft); font-size: 12px; }
 
 .profile-products .product-grid {
@@ -266,7 +266,6 @@
   .profile-avatar { order: 1; width: 72px; height: 72px; }
   .profile-actions { order: 2; margin-top: 46px; margin-left: auto; }
   .profile-id { order: 3; flex: 1 1 100%; padding-top: 2px; }
-  .profile-id h1 { font-size: 18px; }
   .profile-sub { font-size: 12px; }
   .profile-stats { padding: 16px; gap: 10px 22px; }
   .profile-bio, .profile-certs { margin: 12px 16px 0; }
