@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/product.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="search-band">
+    <div class="container">
+      <form class="search-band-form" id="search-form">
+        <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+        </svg>
+        <input class="input" id="search-box" data-i18n-placeholder="filter.search">
+      </form>
+    </div>
+  </section>
+
+  <main class="container detail-page">
+    <div class="alert alert-error" id="page-error" hidden></div>
+
+    <button type="button" class="btn btn-gold back-button" id="back-button">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 5l-7 7 7 7"/>
+      </svg>
+      <span data-i18n="detail.back">Back</span>
+    </button>
+
+    <nav class="breadcrumb" id="breadcrumb"></nav>
+    <h1 class="detail-title" id="product-name"></h1>
+
+    <div class="detail-top">
+      <div class="gallery">
+        <button type="button" class="gallery-main" id="zoom-button" data-i18n-label="detail.enlarge">
+          <img id="main-image" alt="">
+        </button>
+        <div class="gallery-thumbs" id="thumbs"></div>
+      </div>
+
+      <aside class="info-card">
+        <p class="info-label" data-i18n="detail.information">Information</p>
+        <p class="info-price" id="price"></p>
+        <dl class="info-rows" id="info-rows"></dl>
+        <div class="contact-links" id="contact-links"></div>
+      </aside>
+    </div>
+
+    <div class="seller-chip" id="seller-chip"></div>
+
+    <section class="description">
+      <h2 data-i18n="detail.description">Description</h2>
+      <p id="description-text"></p>
+    </section>
+  </main>
+
+  <h2 class="farm-heading" data-i18n="detail.aboutFarm">About our Farm</h2>
+  <section class="farm-band" id="farm-band" hidden>
+    <div class="container farm-inner">
+      <div>
+        <p class="farm-label" id="farm-label"></p>
+        <h2 id="farm-name"></h2>
+        <p class="farm-story" id="farm-story"></p>
+        <div class="seller-chip seller-chip-dark" id="farm-chip"></div>
+      </div>
+      <div class="farm-image">
+        <img id="farm-photo" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="container reviews">
+    <div class="reviews-grid">
+      <div class="review-summary">
+        <h2 data-i18n="detail.reviews">Reviews</h2>
+        <p class="score" id="rating-score">0</p>
+        <p class="score-of" data-i18n="detail.outOf">/5</p>
+        <div id="rating-stars"></div>
+        <p class="rating-count" id="rating-count"></p>
+      </div>
+
+      <div class="review-list-wrap">
+        <h3 data-i18n="detail.whatBuyersSay">What Buyers Say</h3>
+        <div class="review-list" id="review-list"></div>
+      </div>
+    </div>
+
+    <div class="leave-review" id="leave-review" hidden>
+      <h3 data-i18n="detail.leaveReview">Leave a Review</h3>
+      <p class="rating-label" data-i18n="detail.yourRating">Your Rating</p>
+      <div class="star-picker" id="star-picker"></div>
+      <textarea class="input" id="review-text" maxlength="1500" data-i18n-placeholder="detail.reviewPlaceholder"></textarea>
+      <p class="review-message" id="review-message"></p>
+      <button type="button" class="btn btn-gold" id="review-submit" data-i18n="detail.postReview">Post review</button>
+    </div>
+
+    <p class="review-note" id="review-note" hidden></p>
+  </section>
+
+  <section class="container provinces">
+    <div class="provinces-head">
+      <p class="eyebrow" data-i18n="prov.label">Across Cambodia</p>
+      <h2 data-i18n="prov.title">Products from Every Province</h2>
+      <p data-i18n="prov.text"></p>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <!-- Full size photo viewer -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" hidden>
+    <button type="button" class="lightbox-close" id="lightbox-close" data-i18n-label="detail.close">&times;</button>
+    <button type="button" class="lightbox-step" id="lightbox-prev" data-i18n-label="detail.previous">&#8249;</button>
+    <img id="lightbox-image" alt="">
+    <button type="button" class="lightbox-step" id="lightbox-next" data-i18n-label="detail.next">&#8250;</button>
+    <p class="lightbox-count" id="lightbox-count"></p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/product.js"></script>
+</body>
+</html>

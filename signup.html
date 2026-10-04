@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container form-page">
+    <div class="form-card">
+      <h1 data-i18n="auth.signupTitle">Create your account</h1>
+      <p data-i18n="auth.signupSub"></p>
+
+      <form id="signup-form">
+        <div class="alert alert-error" id="form-error" hidden></div>
+
+        <div class="field">
+          <label for="name" data-i18n="auth.name">Your name</label>
+          <input class="input" type="text" id="name" name="name" required maxlength="100" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="email" data-i18n="auth.email">Email</label>
+          <input class="input" type="email" id="email" name="email" required autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="password" data-i18n="auth.password">Password</label>
+          <input class="input" type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
+          <p class="hint" data-i18n="auth.passwordHint"></p>
+        </div>
+
+        <div class="field">
+          <label data-i18n="auth.accountType">I want to join as</label>
+          <div class="choice-list">
+            <label class="choice">
+              <input type="radio" name="accountType" value="BUYER" checked>
+              <span>
+                <strong data-i18n="auth.buyer">Buyer</strong>
+                <small data-i18n="auth.buyerDesc"></small>
+              </span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="accountType" value="PRODUCER">
+              <span>
+                <strong data-i18n="auth.producer">Producer</strong>
+                <small data-i18n="auth.producerDesc"></small>
+              </span>
+            </label>
+            <label class="choice">
+              <input type="radio" name="accountType" value="BUSINESS">
+              <span>
+                <strong data-i18n="auth.business">Business</strong>
+                <small data-i18n="auth.businessDesc"></small>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-green btn-block" id="submit-button" data-i18n="auth.createAccount">Create account</button>
+      </form>
+
+      <p class="form-footer">
+        <span data-i18n="auth.haveAccount">Already have an account?</span>
+        <a href="login.html" data-i18n="auth.login">Log in</a>
+      </p>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    const form = document.getElementById('signup-form');
+    const errorBox = document.getElementById('form-error');
+    const button = document.getElementById('submit-button');
+
+    // Pre-select the account type when arriving from "Become a Producer".
+    const wanted = new URLSearchParams(location.search).get('type');
+    if (wanted) {
+      const option = form.querySelector(`input[value="${wanted.toUpperCase()}"]`);
+      if (option) option.checked = true;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      errorBox.hidden = true;
+      button.disabled = true;
+      button.textContent = t('auth.working');
+
+      try {
+        await signUp({
+          email: form.email.value.trim(),
+          password: form.password.value,
+          displayName: form.name.value.trim(),
+          accountType: form.accountType.value,
+        });
+        location.href = form.accountType.value === 'BUYER' ? 'index.html' : 'dashboard.html';
+      } catch (error) {
+        errorBox.textContent = authErrorText(error);
+        errorBox.hidden = false;
+        button.disabled = false;
+        button.textContent = t('auth.createAccount');
+      }
+    });
+  </script>
+</body>
+</html>

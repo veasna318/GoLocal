@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoLocal | Made by Khmer for Khmer</title>
+  <meta name="description" content="Discover authentic Cambodian products and connect directly with verified local producers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <!-- Hero: producer stories, categories and province filter -->
+    <section class="hero">
+      <div class="container">
+        <div class="story-carousel">
+          <button class="carousel-arrow prev" data-i18n-label="hero.prev"></button>
+          <div class="story-track">
+            <a class="story-card" href="#" style="background-image:url('assets/images/banners/banner-1.jpg')">
+              <span class="story-location" data-region="Battambang">Battambang</span>
+              <div class="story-content">
+                <div class="story-author"><span class="story-avatar">S</span>Sokha Family Farm</div>
+                <p>Fresh fruit and vegetables from Battambang, picked the same morning they reach the market.</p>
+              </div>
+            </a>
+            <a class="story-card" href="#" style="background-image:url('assets/images/banners/banner-2.jpg')">
+              <span class="story-location" data-region="Kampot">Kampot</span>
+              <div class="story-content">
+                <div class="story-author"><span class="story-avatar">K</span>Kampot Durian Growers</div>
+                <p>Big win for Khmer durian! Bek Anlung just got official protection.</p>
+              </div>
+            </a>
+            <a class="story-card" href="#" style="background-image:url('assets/images/banners/banner-3.jpg')">
+              <span class="story-location" data-region="Kampong Chhnang">Kampong Chhnang</span>
+              <div class="story-content">
+                <div class="story-author"><span class="story-avatar">R</span>Rattan Weavers Group</div>
+                <p>Handwoven baskets made by village artisans using skills passed down for generations.</p>
+              </div>
+            </a>
+            <a class="story-card" href="#" style="background-image:url('assets/images/banners/banner-4.jpg')">
+              <span class="story-location" data-region="Kampong Speu">Kampong Speu</span>
+              <div class="story-content">
+                <div class="story-author"><span class="story-avatar">P</span>Palm Sugar Cooperative</div>
+                <p>Twenty families keeping the tradition of natural palm sugar alive.</p>
+              </div>
+            </a>
+          </div>
+          <button class="carousel-arrow next" data-i18n-label="hero.next"></button>
+        </div>
+
+        <h2 class="hero-title" data-i18n="cat.title">Categories</h2>
+        <div class="category-row" id="category-row"></div>
+        <div class="region-bar" id="region-chips"></div>
+      </div>
+    </section>
+
+    <!-- Main white panel: search, products and requests -->
+    <div class="container">
+      <div class="content-panel">
+        <div class="filter-bar">
+          <div class="search-row">
+            <form class="search-box" id="search-form" role="search">
+              <span class="search-icon" data-icon="search"></span>
+              <input type="search" name="q" data-i18n-placeholder="filter.search" placeholder="Search">
+              <button type="submit" class="btn btn-green btn-sm" data-i18n="filter.searchBtn">Search</button>
+            </form>
+            <div class="seller-toggle" role="group">
+              <button type="button" data-verified="false" class="active" data-i18n="filter.all">All Sellers</button>
+              <button type="button" data-verified="true" data-i18n="filter.verified">Verified Only</button>
+            </div>
+          </div>
+          <p class="sample-note" id="sample-note" hidden data-i18n="sample.note"></p>
+        </div>
+
+        <section class="home-section">
+          <div class="section-head">
+            <div>
+              <h2 data-i18n="sec.featured">Featured Products</h2>
+              <p data-i18n="sec.featuredSub"></p>
+            </div>
+            <a href="products.html?sort=featured" class="view-all"><span data-i18n="common.viewAll">View all</span><span data-icon="arrow"></span></a>
+          </div>
+          <div class="product-grid" id="featured-grid"></div>
+        </section>
+
+        <section class="home-section">
+          <div class="section-head">
+            <div>
+              <h2 data-i18n="sec.trending">Trending Products</h2>
+              <p data-i18n="sec.trendingSub"></p>
+            </div>
+            <a href="products.html?sort=rating" class="view-all"><span data-i18n="common.viewAll">View all</span><span data-icon="arrow"></span></a>
+          </div>
+          <div class="product-grid" id="trending-grid"></div>
+        </section>
+
+        <section class="home-section">
+          <div class="section-head">
+            <div>
+              <h2 data-i18n="sec.requests">Request Board</h2>
+              <p data-i18n="sec.requestsSub"></p>
+            </div>
+            <a href="requests.html" class="view-all"><span data-i18n="common.viewAll">View all</span><span data-icon="arrow"></span></a>
+          </div>
+          <div class="request-grid" id="request-grid"></div>
+          <div class="center">
+            <a href="requests.html" class="btn btn-green" data-i18n="req.more">More Requests</a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Producer spotlight -->
+    <section class="spotlight">
+      <div class="container spotlight-inner" id="spotlight"></div>
+    </section>
+
+    <!-- Provinces -->
+    <section class="provinces">
+      <div class="container">
+        <div class="provinces-head reveal">
+          <span class="eyebrow" data-i18n="prov.label">Across Cambodia</span>
+          <h2 data-i18n="prov.title">Products from Every Province</h2>
+          <p data-i18n="prov.text"></p>
+        </div>
+        <div class="province-grid" id="province-grid"></div>
+      </div>
+    </section>
+
+    <!-- Calls to action for sellers -->
+    <section class="container cta-grid">
+      <div class="cta-card cta-producer reveal">
+        <h3 data-i18n="cta.producerTitle">Are you a local producer?</h3>
+        <p data-i18n="cta.producerText"></p>
+        <a href="signup.html?type=producer" class="btn btn-gold" data-i18n="cta.producerBtn">Apply as Producer</a>
+      </div>
+      <div class="cta-card cta-business reveal">
+        <h3 data-i18n="cta.businessTitle">Looking for local suppliers?</h3>
+        <p data-i18n="cta.businessText"></p>
+        <a href="signup.html?type=business" class="btn btn-green" data-i18n="cta.businessBtn">Post a Request</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/sample-data.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

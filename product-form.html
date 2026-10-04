@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="page-header">
+    <div class="container">
+      <h1 id="page-title" data-i18n="form.newProduct">New product</h1>
+      <p><a href="dashboard.html" style="color:var(--gold-400)" data-i18n="form.back">Back to dashboard</a></p>
+    </div>
+  </section>
+
+  <main class="container form-page">
+    <div class="form-card wide-card">
+      <form id="product-form">
+        <div class="alert alert-error" id="form-error" hidden></div>
+        <div class="alert alert-success" id="form-success" hidden></div>
+
+        <h2 class="section-title" data-i18n="form.basics">Product details</h2>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="name" data-i18n="form.nameEn">Product name (English)</label>
+            <div class="input-wrap">
+              <input class="input" id="name" name="name" required maxlength="160">
+              <button type="button" class="fill-btn" data-fill="name" data-source="name_km"
+                      data-target="en" data-i18n="form.autoFill" hidden>Auto fill</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="name_km" data-i18n="form.nameKm">Product name (Khmer)</label>
+            <div class="input-wrap">
+              <input class="input" id="name_km" name="name_km" maxlength="160">
+              <button type="button" class="fill-btn" data-fill="name_km" data-source="name"
+                      data-target="km" data-i18n="form.autoFill" hidden>Auto fill</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="category_id" data-i18n="form.category">Category</label>
+            <select class="input" id="category_id" name="category_id" required></select>
+          </div>
+          <div class="field">
+            <label for="region_id" data-i18n="form.province">Province</label>
+            <select class="input" id="region_id" name="region_id" required></select>
+          </div>
+        </div>
+
+        <!-- AI description writer -->
+        <div class="field">
+          <div class="ai-box">
+            <h3 data-i18n="ai.title">Write with AI</h3>
+            <p data-i18n="ai.sub"></p>
+            <div class="ai-row">
+              <input class="input" id="ai-keywords" data-i18n-placeholder="ai.placeholder">
+              <button type="button" class="btn btn-gold" id="ai-button" data-i18n="ai.write">Write with AI</button>
+            </div>
+            <p class="hint" id="ai-message"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="description" data-i18n="form.desc">Description</label>
+          <textarea class="input" id="description" name="description" required minlength="10" maxlength="5000"></textarea>
+          <p class="hint" data-i18n="form.descHint"></p>
+        </div>
+
+        <h2 class="section-title" data-i18n="form.pricing">Price and packaging</h2>
+
+        <!-- Both currencies are saved so buyers can switch the whole site -->
+        <div class="price-block">
+          <div class="field-row-3">
+            <div class="field">
+              <label for="price_usd_min" data-i18n="form.priceMinUsd">Price from (USD)</label>
+              <input class="input" type="number" id="price_usd_min" name="price_usd_min" min="0" step="any">
+            </div>
+            <div class="field">
+              <label for="price_usd_max" data-i18n="form.priceMaxUsd">Price to (USD)</label>
+              <input class="input" type="number" id="price_usd_max" name="price_usd_max" min="0" step="any">
+            </div>
+            <div class="field">
+              <label for="currency" data-i18n="form.mainCurrency">I usually quote in</label>
+              <select class="input" id="currency" name="currency">
+                <option value="USD">USD ($)</option>
+                <option value="KHR">KHR (៛)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row-3">
+            <div class="field">
+              <label for="price_khr_min" data-i18n="form.priceMinKhr">Price from (KHR)</label>
+              <input class="input" type="number" id="price_khr_min" name="price_khr_min" min="0" step="any">
+            </div>
+            <div class="field">
+              <label for="price_khr_max" data-i18n="form.priceMaxKhr">Price to (KHR)</label>
+              <input class="input" type="number" id="price_khr_max" name="price_khr_max" min="0" step="any">
+            </div>
+            <div class="field price-note">
+              <p class="hint" data-i18n="form.priceHint"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-row-3">
+          <div class="field">
+            <label for="unit" data-i18n="form.unit">Unit</label>
+            <input class="input" id="unit" name="unit" value="kg" maxlength="30">
+            <p class="hint" data-i18n="form.unitHint"></p>
+          </div>
+          <div class="field">
+            <label for="min_order_qty" data-i18n="form.minOrder">Minimum order</label>
+            <input class="input" type="number" id="min_order_qty" name="min_order_qty" min="0" step="any">
+          </div>
+          <div class="field">
+            <label for="stock_status" data-i18n="form.stock">Availability</label>
+            <select class="input" id="stock_status" name="stock_status">
+              <option value="IN_STOCK" data-i18n="form.stockIn">In stock</option>
+              <option value="LIMITED" data-i18n="form.stockLimited">Limited</option>
+              <option value="OUT_OF_STOCK" data-i18n="form.stockOut">Out of stock</option>
+              <option value="PRE_ORDER" data-i18n="form.stockPre">Pre-order</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row-3">
+          <div class="field">
+            <label for="packaging" data-i18n="form.packaging">Packaging</label>
+            <input class="input" id="packaging" name="packaging" maxlength="200">
+            <p class="hint" data-i18n="form.packagingHint"></p>
+          </div>
+          <div class="field">
+            <label for="certification" data-i18n="form.certification">Certification</label>
+            <input class="input" id="certification" name="certification" maxlength="200">
+          </div>
+          <div class="field">
+            <label for="production_period" data-i18n="form.productionPeriod">Production period</label>
+            <input class="input" id="production_period" name="production_period" maxlength="100">
+          </div>
+        </div>
+
+        <h2 class="section-title" data-i18n="form.photos">Photos</h2>
+        <p class="hint" data-i18n="form.photosHint"></p>
+        <div class="photo-grid" id="photo-grid"></div>
+        <input type="file" id="photo-input" accept="image/jpeg,image/png,image/webp" multiple hidden>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-green" id="publish-button" value="PUBLISHED" data-i18n="form.publish">Publish</button>
+          <button type="submit" class="btn btn-outline" id="draft-button" value="DRAFT" data-i18n="form.saveDraft">Save as draft</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/product-form.js"></script>
+</body>
+</html>

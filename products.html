@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/products.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="search-band">
+    <div class="container">
+      <form class="search-band-form" id="search-form">
+        <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+        </svg>
+        <input class="input" id="search-box" data-i18n-placeholder="filter.search">
+      </form>
+    </div>
+  </section>
+
+  <main class="container browse">
+    <div class="browse-head">
+      <div>
+        <h1 data-i18n="browse.title">All Products</h1>
+        <p class="result-count" id="result-count"></p>
+      </div>
+      <div class="browse-tools">
+        <button type="button" class="btn btn-outline btn-sm filter-toggle" id="filter-toggle"
+                data-i18n="browse.refine">Refine</button>
+        <label class="sort-label">
+          <span data-i18n="browse.sortBy">Sort by</span>
+          <select class="input" id="sort">
+            <option value="recommended" data-i18n="browse.sortRecommended">Recommended</option>
+            <option value="newest" data-i18n="browse.sortNewest">Newest</option>
+            <option value="priceLow" data-i18n="browse.sortPriceLow">Price: low to high</option>
+            <option value="priceHigh" data-i18n="browse.sortPriceHigh">Price: high to low</option>
+            <option value="rating" data-i18n="browse.sortRating">Highest rated</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <section class="browse-pickers">
+      <h2 class="picker-title" data-i18n="cat.title">Categories</h2>
+      <div class="category-row" id="category-row"></div>
+      <div class="region-bar" id="region-chips"></div>
+    </section>
+
+    <div class="browse-body">
+      <aside class="filters" id="filters">
+        <div class="filters-head">
+          <h2 data-i18n="browse.refine">Refine</h2>
+          <button type="button" class="link-button" id="clear-filters" data-i18n="browse.clear">Clear all</button>
+        </div>
+
+        <fieldset class="filter-group">
+          <legend data-i18n="browse.trust">Trust</legend>
+          <label class="switch-row">
+            <input type="checkbox" id="verified-only">
+            <span data-i18n="browse.verifiedOnly">Verified sellers only</span>
+          </label>
+          <label class="switch-row">
+            <input type="checkbox" id="certified-only">
+            <span data-i18n="browse.certifiedOnly">Has a certification</span>
+          </label>
+        </fieldset>
+
+        <fieldset class="filter-group">
+          <legend data-i18n="form.stock">Availability</legend>
+          <div class="check-list" id="stock-list">
+            <label><input type="checkbox" value="IN_STOCK"><span data-i18n="form.stockIn">In stock</span></label>
+            <label><input type="checkbox" value="LIMITED"><span data-i18n="form.stockLimited">Limited</span></label>
+            <label><input type="checkbox" value="PRE_ORDER"><span data-i18n="form.stockPre">Pre-order</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="filter-group">
+          <legend data-i18n="browse.price">Price</legend>
+          <div class="price-row">
+            <input class="input" type="number" id="price-min" min="0" step="any" data-i18n-placeholder="browse.min">
+            <span>&ndash;</span>
+            <input class="input" type="number" id="price-max" min="0" step="any" data-i18n-placeholder="browse.max">
+          </div>
+          <p class="hint" data-i18n="browse.priceHint"></p>
+        </fieldset>
+
+        <fieldset class="filter-group">
+          <legend data-i18n="detail.rating">Rating</legend>
+          <select class="input" id="rating-select">
+            <option value="" data-i18n="browse.anyRating">Any rating</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+            <option value="4.5">4.5+</option>
+          </select>
+        </fieldset>
+      </aside>
+
+      <section class="results">
+        <div class="active-chips" id="active-chips"></div>
+        <div class="product-grid" id="product-grid"></div>
+        <div class="center">
+          <button type="button" class="btn btn-outline" id="load-more" hidden
+                  data-i18n="browse.loadMore">Load more</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>
