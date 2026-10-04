@@ -6,7 +6,6 @@ const home = {
   regions: [],
   categories: [],
   region: 'all',
-  verifiedOnly: false,
   useSample: false,
   featured: [],
   trending: [],
@@ -100,14 +99,6 @@ function setupFilters() {
     loadProducts();
   });
 
-  document.querySelectorAll('.seller-toggle button').forEach((button) => {
-    button.addEventListener('click', () => {
-      home.verifiedOnly = button.dataset.verified === 'true';
-      document.querySelectorAll('.seller-toggle button').forEach((b) => b.classList.toggle('active', b === button));
-      loadProducts();
-    });
-  });
-
   document.getElementById('search-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const q = new FormData(e.target).get('q').trim();
@@ -118,14 +109,12 @@ function setupFilters() {
 function productQuery() {
   let query = db.from('product_cards').select('*').eq('status', 'PUBLISHED');
   if (home.region !== 'all') query = query.eq('region_id', home.region);
-  if (home.verifiedOnly) query = query.eq('seller_verified', true);
   return query;
 }
 
 function filteredSample() {
   const name = regionById(home.region)?.name_en;
-  return SAMPLE_PRODUCTS.filter((p) =>
-    (home.region === 'all' || p.region_name === name) && (!home.verifiedOnly || p.seller_verified));
+  return SAMPLE_PRODUCTS.filter((p) => home.region === 'all' || p.region_name === name);
 }
 
 async function loadProducts() {
@@ -154,7 +143,7 @@ async function loadProducts() {
   }
 
   // Show sample listings only when the whole site has no products yet.
-  const noFilters = home.region === 'all' && !home.verifiedOnly;
+  const noFilters = home.region === 'all';
   if (noFilters && featured.data.length === 0 && typeof SAMPLE_PRODUCTS !== 'undefined') {
     home.useSample = true;
     document.getElementById('sample-note').hidden = false;

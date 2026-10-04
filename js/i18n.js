@@ -20,8 +20,6 @@ const TEXT = {
     'filter.more': 'More',
     'filter.search': 'Search by name, product or region',
     'filter.searchBtn': 'Search',
-    'filter.all': 'All Sellers',
-    'filter.verified': 'Verified Only',
 
     'sec.featured': 'Featured Products',
     'sec.featuredSub': 'Promoted by local producers this week',
@@ -212,7 +210,6 @@ const TEXT = {
     'browse.refine': 'Refine',
     'browse.clear': 'Clear all',
     'browse.trust': 'Trust',
-    'browse.verifiedOnly': 'Verified sellers only',
     'browse.certifiedOnly': 'Has a certification',
     'browse.price': 'Price',
     'browse.min': 'Min',
@@ -387,8 +384,6 @@ const TEXT = {
     'filter.more': 'ច្រើនទៀត',
     'filter.search': 'ស្វែងរកតាមឈ្មោះ ផលិតផល ឬខេត្ត',
     'filter.searchBtn': 'ស្វែងរក',
-    'filter.all': 'អ្នកលក់ទាំងអស់',
-    'filter.verified': 'បានផ្ទៀងផ្ទាត់',
 
     'sec.featured': 'ផលិតផលពិសេស',
     'sec.featuredSub': 'ផ្សព្វផ្សាយដោយអ្នកផលិតក្នុងស្រុកសប្តាហ៍នេះ',
@@ -579,7 +574,6 @@ const TEXT = {
     'browse.refine': 'កែតម្រង',
     'browse.clear': 'សម្អាតទាំងអស់',
     'browse.trust': 'ទំនុកចិត្ត',
-    'browse.verifiedOnly': 'តែអ្នកលក់ដែលបានផ្ទៀងផ្ទាត់',
     'browse.certifiedOnly': 'មានវិញ្ញាបនបត្រ',
     'browse.price': 'តម្លៃ',
     'browse.min': 'តិចបំផុត',

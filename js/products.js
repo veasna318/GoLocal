@@ -22,7 +22,6 @@ function readFilters() {
     category: picked.category,
     region: picked.region,
     stock: checked('#stock-list input'),
-    verified: document.getElementById('verified-only').checked,
     certified: document.getElementById('certified-only').checked,
     priceMin: document.getElementById('price-min').value,
     priceMax: document.getElementById('price-max').value,
@@ -38,7 +37,6 @@ function saveFiltersToUrl(filters) {
   if (filters.category) params.set('category', filters.category);
   if (filters.region) params.set('region', filters.region);
   if (filters.stock.length) params.set('stock', filters.stock.join(','));
-  if (filters.verified) params.set('verified', '1');
   if (filters.certified) params.set('certified', '1');
   if (filters.priceMin) params.set('min', filters.priceMin);
   if (filters.priceMax) params.set('max', filters.priceMax);
@@ -61,7 +59,6 @@ function loadFiltersFromUrl() {
   setChecks('#stock-list input', (params.get('stock') || '').split(','));
   picked.category = params.get('category') || '';
   picked.region = params.get('region') || '';
-  document.getElementById('verified-only').checked = params.get('verified') === '1';
   document.getElementById('certified-only').checked = params.get('certified') === '1';
   document.getElementById('price-min').value = params.get('min') || '';
   document.getElementById('price-max').value = params.get('max') || '';
@@ -83,7 +80,6 @@ function buildQuery(filters) {
   if (filters.category) query = query.eq('category_slug', filters.category);
   if (filters.region) query = query.eq('region_id', filters.region);
   if (filters.stock.length) query = query.in('stock_status', filters.stock);
-  if (filters.verified) query = query.eq('seller_verified', true);
   if (filters.certified) query = query.not('certification', 'is', null);
   if (filters.rating) query = query.gte('average_rating', Number(filters.rating));
 
@@ -118,9 +114,6 @@ function renderActiveChips(filters) {
   if (filters.region) {
     const found = regions.find((r) => r.id === filters.region);
     if (found) add(localName(found), () => { picked.region = ''; });
-  }
-  if (filters.verified) {
-    add(t('browse.verifiedOnly'), () => { document.getElementById('verified-only').checked = false; });
   }
   if (filters.certified) {
     add(t('browse.certifiedOnly'), () => { document.getElementById('certified-only').checked = false; });
@@ -281,7 +274,7 @@ function listenToFilters() {
   document.getElementById('price-max').addEventListener('input', searchSoon);
 
   document.getElementById('stock-list').addEventListener('change', () => search());
-  ['verified-only', 'certified-only', 'rating-select', 'sort']
+  ['certified-only', 'rating-select', 'sort']
     .forEach((id) => document.getElementById(id).addEventListener('change', () => search()));
   document.getElementById('category-row').addEventListener('scroll', updateCategoryFade, { passive: true });
   window.addEventListener('resize', updateCategoryFade);
