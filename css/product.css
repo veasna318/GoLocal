@@ -124,7 +124,7 @@
   padding: 48px 0;
   background:
     linear-gradient(rgba(29, 51, 39, 0.88), rgba(29, 51, 39, 0.88)),
-    url('../assets/images/farm-bg.jpg') center / cover,
+    url('../assets/images/hero-bg.jpg') center / cover,
     var(--green-900);
   color: var(--white);
 }
