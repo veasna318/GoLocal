@@ -260,6 +260,13 @@ async function loadProducer() {
   return true;
 }
 
+// The owner of the profile gets an edit link instead of only a report button.
+function showOwnerTools() {
+  const isMine = auth.user && auth.user.id === producerId;
+  document.getElementById('edit-account').hidden = !isMine;
+  document.getElementById('report-profile').hidden = !!isMine;
+}
+
 function renderAll(rating, productCount) {
   renderHead(rating, productCount);
   renderStory();
@@ -292,6 +299,7 @@ async function initProducerPage() {
 
   const [rating, productCount] = await Promise.all([loadRating(), loadProducts()]);
   renderAll(rating, productCount);
+  showOwnerTools();
   applyTranslations();
 }
 

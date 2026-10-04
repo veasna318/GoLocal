@@ -74,7 +74,13 @@
 .profile-sub .sub-dot { color: var(--line); }
 .profile-sub .icon { width: 14px; height: 14px; }
 
-.profile-flag { align-self: center; margin-top: 34px; }
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 34px;
+}
+.profile-flag { align-self: center; }
 
 .profile-stats {
   display: flex;
@@ -108,7 +114,7 @@
   grid-template-columns: 1fr 320px;
   gap: 20px;
   align-items: start;
-  margin-top: 22px;
+  margin-top: 18px;
 }
 
 .profile-about {
@@ -128,7 +134,7 @@
 .profile-contact { grid-column: 2; align-self: start; }
 
 /* Photos */
-.profile-photos { margin-top: 26px; }
+.profile-photos { margin-top: 18px; }
 .profile-photos h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
 
 .photo-row {
@@ -175,7 +181,14 @@
 }
 
 /* Products */
-.profile-products { margin-top: 32px; }
+/* The products sit on a white band, as they do on the home page. */
+.profile-products {
+  margin-top: 26px;
+  padding: 24px 24px 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
 .section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
 .section-head h2 { font-size: 18px; font-weight: 600; }
 .section-sub { color: var(--text-soft); font-size: 12px; }
@@ -194,10 +207,11 @@
 }
 
 @media (max-width: 760px) {
+  .profile-products { padding: 18px 16px 22px; }
   .profile-cover { height: 140px; }
   .profile-bar { padding: 0 16px; gap: 12px; }
   .profile-id { padding-top: 26px; }
-  .profile-flag { margin-top: 26px; }
+  .profile-actions { margin-top: 26px; }
   .profile-avatar { width: 72px; height: 72px; }
   .profile-id h1 { font-size: 18px; }
   .profile-stats { padding: 16px; gap: 10px 22px; }

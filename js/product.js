@@ -157,18 +157,24 @@ function renderInformation(rating) {
 }
 
 function sellerChip(seller, extraClass = '') {
-  const name = seller.business_name || seller.display_name;
-  const letter = name.trim().charAt(0).toUpperCase();
+  const person = seller.display_name || '';
+  const farm = seller.business_name || '';
+  const place = localName(seller.region) || '';
+  const letter = (person || farm).trim().charAt(0).toUpperCase();
   const avatar = seller.avatar_path
     ? `<img src="${esc(imageUrl(seller.avatar_path))}" alt="" onerror="${FALLBACK_IMAGE}">`
     : `<span class="chip-letter">${esc(letter)}</span>`;
+
+  // The person's name leads, with the farm and province underneath,
+  // so the box matches the producer profile page.
+  const under = [farm, place].filter(Boolean);
 
   return `
     <a class="chip-inner ${extraClass}" href="producer.html?id=${esc(seller.id)}">
       ${avatar}
       <span>
-        <strong>${esc(name)}</strong>
-        <small>${icon('pin')}${esc(localName(seller.region) || '')}</small>
+        <strong>${esc(person || farm)}</strong>
+        ${under.length ? `<small>${icon('pin')}${esc(under.join(' \u00b7 '))}</small>` : ''}
       </span>
       ${seller.verification_status === 'VERIFIED' ? verifiedBadge() : ''}
     </a>`;
@@ -185,7 +191,8 @@ function renderFarm(seller) {
     : localName(seller.region) || '';
   document.getElementById('farm-name').textContent = seller.business_name || seller.display_name;
   document.getElementById('farm-story').textContent = seller.farm_story || seller.bio;
-  document.getElementById('farm-chip').innerHTML = sellerChip(seller);
+  document.getElementById('farm-chip').innerHTML =
+    `<a class="btn btn-gold" href="producer.html?id=${esc(seller.id)}">${t('spot.visit')}</a>`;
 
   const photo = (seller.seller_photos || [])[0];
   const image = document.getElementById('farm-photo');
