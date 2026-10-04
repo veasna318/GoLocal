@@ -1,0 +1,49 @@
+/* My Account page. Adds only the pieces forms.css does not already have. */
+
+.field-hint {
+  margin: 2px 0 8px;
+  color: var(--text-soft);
+  font-size: 12px;
+}
+
+/* Profile picture and cover photo */
+.single-image { display: grid; gap: 10px; }
+
+.single-image-frame {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--cream-100);
+  border: 1px dashed var(--line);
+  color: var(--text-soft);
+  font-size: 12px;
+}
+.single-image-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.single-image-frame.round {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.single-image-frame.wide {
+  width: 100%;
+  height: 120px;
+  border-radius: var(--radius-sm);
+}
+
+.single-image-actions { display: flex; gap: 8px; align-items: center; }
+
+/* A quiet button for the remove action, so it does not compete with Save. */
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-soft);
+}
+.btn-ghost:hover { color: var(--red); box-shadow: none; transform: none; }
+
+.save-state { color: var(--text-soft); font-size: 12px; }
+
+@media (max-width: 700px) {
+  .single-image-frame.round { width: 96px; height: 96px; }
+  .single-image-frame.wide { height: 100px; }
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/account.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="page-header">
+    <div class="container">
+      <h1 data-i18n="acct.title">My Account</h1>
+      <p><a id="view-profile" href="#" style="color:var(--gold-400)" data-i18n="acct.viewProfile" hidden>View my public profile</a></p>
+    </div>
+  </section>
+
+  <main class="container form-page">
+    <div class="form-card wide-card">
+      <form id="account-form">
+        <div class="alert alert-error" id="form-error" hidden></div>
+        <div class="alert alert-success" id="form-success" hidden></div>
+        <div class="alert alert-info" id="verify-note" hidden></div>
+
+        <h2 class="section-title" data-i18n="acct.who">Who you are</h2>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="display_name" data-i18n="acct.displayName">Your name</label>
+            <input class="input" id="display_name" name="display_name" required maxlength="100">
+          </div>
+          <div class="field">
+            <label for="business_name" data-i18n="acct.businessName">Farm or business name</label>
+            <input class="input" id="business_name" name="business_name" maxlength="150">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="region_id" data-i18n="form.province">Province</label>
+            <select class="input" id="region_id" name="region_id"></select>
+          </div>
+          <div class="field">
+            <label for="established_year" data-i18n="acct.established">Year established</label>
+            <input class="input" id="established_year" name="established_year" type="number"
+                   min="1900" max="2100" step="1">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="bio" data-i18n="acct.bio">Short introduction</label>
+          <textarea class="input" id="bio" name="bio" rows="3" maxlength="1500"
+                    data-i18n-placeholder="acct.bioHint"></textarea>
+        </div>
+
+        <!-- Pictures -->
+        <h2 class="section-title" data-i18n="acct.pictures">Your pictures</h2>
+
+        <div class="field-row">
+          <div class="field">
+            <label data-i18n="acct.avatar">Profile picture</label>
+            <div class="single-image">
+              <div class="single-image-frame round" id="avatar-frame"></div>
+              <div class="single-image-actions">
+                <button type="button" class="btn btn-outline btn-sm" id="avatar-pick" data-i18n="acct.choose">Choose picture</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="avatar-clear" data-i18n="acct.remove" hidden>Remove</button>
+              </div>
+              <input type="file" id="avatar-input" accept="image/*" hidden>
+            </div>
+          </div>
+
+          <div class="field">
+            <label data-i18n="acct.cover">Cover photo</label>
+            <div class="single-image">
+              <div class="single-image-frame wide" id="cover-frame"></div>
+              <div class="single-image-actions">
+                <button type="button" class="btn btn-outline btn-sm" id="cover-pick" data-i18n="acct.choose">Choose picture</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="cover-clear" data-i18n="acct.remove" hidden>Remove</button>
+              </div>
+              <input type="file" id="cover-input" accept="image/*" hidden>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seller only -->
+        <div id="seller-block" hidden>
+          <h2 class="section-title" data-i18n="acct.farm">Your farm or workshop</h2>
+
+          <div class="field">
+            <label for="farm_story" data-i18n="acct.farmStory">Your story</label>
+            <textarea class="input" id="farm_story" name="farm_story" rows="6" maxlength="5000"
+                      data-i18n-placeholder="acct.farmStoryHint"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="production_capacity" data-i18n="acct.capacity">Production capacity</label>
+            <input class="input" id="production_capacity" name="production_capacity" maxlength="200"
+                   data-i18n-placeholder="acct.capacityHint">
+          </div>
+
+          <div class="field">
+            <label data-i18n="acct.farmPhotos">Farm photos</label>
+            <p class="field-hint" data-i18n="acct.farmPhotosHint"></p>
+            <div class="photo-grid" id="photo-grid"></div>
+            <input type="file" id="photo-input" accept="image/*" multiple hidden>
+          </div>
+
+          <h2 class="section-title" data-i18n="acct.contact">How buyers reach you</h2>
+          <p class="field-hint" data-i18n="acct.contactHint"></p>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="contact_phone" data-i18n="acct.phone">Phone</label>
+              <input class="input" id="contact_phone" name="contact_phone" maxlength="30">
+            </div>
+            <div class="field">
+              <label for="contact_telegram" data-i18n="acct.telegram">Telegram</label>
+              <input class="input" id="contact_telegram" name="contact_telegram" maxlength="100">
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="contact_facebook" data-i18n="acct.facebook">Facebook</label>
+              <input class="input" id="contact_facebook" name="contact_facebook" maxlength="200">
+            </div>
+            <div class="field">
+              <label for="contact_email" data-i18n="acct.email">Contact email</label>
+              <input class="input" id="contact_email" name="contact_email" type="email" maxlength="255">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-gold" id="save-button" data-i18n="acct.save">Save changes</button>
+          <span class="save-state" id="save-state"></span>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/account.js"></script>
+</body>
+</html>
