@@ -18,11 +18,20 @@
   <section class="page-header">
     <div class="container">
       <h1 data-i18n="acct.title">My Account</h1>
-      <p><a id="view-profile" href="#" style="color:var(--gold-400)" data-i18n="acct.viewProfile" hidden>View my public profile</a></p>
     </div>
   </section>
 
   <main class="container form-page">
+    <div class="back-row">
+      <button type="button" class="btn btn-gold back-button" id="back-button">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 5l-7 7 7 7"/>
+        </svg>
+        <span data-i18n="detail.back">Back</span>
+      </button>
+    </div>
+
     <div class="form-card wide-card">
       <form id="account-form">
         <div class="alert alert-error" id="form-error" hidden></div>

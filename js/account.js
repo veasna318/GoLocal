@@ -146,12 +146,6 @@ function showSellerParts() {
   const seller = isSeller();
   document.getElementById('seller-block').hidden = !seller;
 
-  const link = document.getElementById('view-profile');
-  if (seller) {
-    link.href = `producer.html?id=${auth.user.id}`;
-    link.hidden = false;
-  }
-
   const note = document.getElementById('verify-note');
   if (seller && auth.profile.verification_status !== 'VERIFIED') {
     note.textContent = t('acct.notVerified');
@@ -226,6 +220,12 @@ async function saveProfile() {
 
   if (seller) await saveFarmPhotos();
 }
+
+// Back goes to wherever the person came from, usually their own profile.
+document.getElementById('back-button').addEventListener('click', () => {
+  if (history.length > 1) history.back();
+  else location.href = auth.user ? `producer.html?id=${auth.user.id}` : 'index.html';
+});
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();

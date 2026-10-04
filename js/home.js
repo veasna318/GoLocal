@@ -219,7 +219,7 @@ function renderRequests() {
 async function loadProducers() {
   const { data } = await db
     .from('profiles')
-    .select('id, display_name, business_name, farm_story, cover_path, region_id, established_year')
+    .select('id, display_name, business_name, farm_story, cover_path, region_id, established_year, seller_photos(storage_path, display_order)')
     .eq('platform_role', 'PRODUCER')
     .eq('verification_status', 'VERIFIED')
     .not('farm_story', 'is', null)
@@ -240,6 +240,14 @@ async function loadProducers() {
     }));
   }
   renderSpotlight();
+}
+
+// The farm photo tells the story better than the profile banner,
+// so use the first one and fall back to the cover.
+function spotlightPhoto(p) {
+  const photos = (p.seller_photos || []).slice()
+    .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
+  return (photos[0] && photos[0].storage_path) || p.cover_path;
 }
 
 function renderSpotlight() {
@@ -274,7 +282,7 @@ function renderSpotlight() {
       </div>
     </div>
     <div class="spotlight-image reveal">
-      <img src="${esc(imageUrl(p.cover_path))}" alt="${esc(p.business_name || '')}" onerror="${FALLBACK_IMAGE}">
+      <img src="${esc(imageUrl(spotlightPhoto(p)))}" alt="${esc(p.business_name || '')}" onerror="${FALLBACK_IMAGE}">
       ${verifiedBadge()}
     </div>`;
 
