@@ -70,8 +70,11 @@ function renderHead(rating, productCount) {
   document.getElementById('profile-name').innerHTML =
     `${esc(name)} ${seller.verification_status === 'VERIFIED' ? verifiedBadge() : ''}`;
 
-  document.getElementById('profile-place').innerHTML =
-    `${icon('pin')}${esc(localName(seller.region) || '')}`;
+  // The province line is left out when the seller has not set one.
+  const place = localName(seller.region) || '';
+  const placeLine = document.getElementById('profile-place');
+  placeLine.hidden = !place;
+  placeLine.innerHTML = place ? `${icon('pin')}${esc(place)}` : '';
 
   const rows = [
     ['prod.productCount', String(productCount)],
