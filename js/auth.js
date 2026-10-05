@@ -98,14 +98,16 @@ async function signOut() {
 }
 
 // Sends visitors to the login page when a page needs an account.
-// Pass 'seller' to also require a verified producer or business account.
+// Pass 'seller' to require a producer or business account. Admins are let
+// through as well, because the header offers them the dashboard and the
+// seller pages already check for them.
 async function requireAccount(level = 'user') {
   if (!auth.ready) await loadSession();
   if (!auth.user) {
     location.href = 'login.html?next=' + encodeURIComponent(location.pathname.split('/').pop());
     return false;
   }
-  if (level === 'seller' && !isSeller()) {
+  if (level === 'seller' && !isSeller() && !isAdmin()) {
     location.href = 'index.html';
     return false;
   }
