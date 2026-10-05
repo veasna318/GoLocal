@@ -170,6 +170,8 @@ function collectFields(status) {
 // The table has checks the browser cannot catch, so say it plainly here.
 function localProblem(fields) {
   const { quantity_min: low, quantity_max: high } = fields;
+  // The database only accepts a quantity above zero.
+  if ((low != null && low <= 0) || (high != null && high <= 0)) return t('rform.qtyPositive');
   if (low != null && high != null && high < low) return t('rform.qtyOrder');
   if (fields.budget_min != null && fields.budget_max != null
       && fields.budget_max < fields.budget_min) return t('rform.budgetOrder');
