@@ -71,6 +71,25 @@ async function signIn(email, password) {
   await loadSession();
 }
 
+// Sends the visitor to Google, which returns them to auth-callback.html.
+// Where they were heading is saved first, because the round trip through
+// Google loses everything the page was holding. The account type is saved
+// the same way: Google tells us nothing about it, so a new account is made
+// a buyer and the callback page records what they chose.
+async function signInWithGoogle({ next, accountType } = {}) {
+  if (next) sessionStorage.setItem('afterSignIn', next);
+  if (accountType) sessionStorage.setItem('wantedAccountType', accountType);
+
+  const { error } = await db.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: new URL('auth-callback.html', location.href).href,
+      queryParams: { prompt: 'select_account' },
+    },
+  });
+  if (error) throw error;
+}
+
 async function signOut() {
   await db.auth.signOut();
   auth.user = null;
