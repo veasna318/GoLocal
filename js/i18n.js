@@ -336,7 +336,6 @@ const TEXT = {
     'acct.facebook': 'Facebook',
     'acct.email': 'Contact email',
     'acct.save': 'Save changes',
-    'acct.saved': 'Your account has been saved.',
     'acct.notVerified': 'Your account is not verified yet, so your contact details stay hidden from buyers.',
 
     'prod.owner': 'Owner',
@@ -774,7 +773,6 @@ const TEXT = {
     'acct.facebook': 'ហ្វេសប៊ុក',
     'acct.email': 'អ៊ីមែលទំនាក់ទំនង',
     'acct.save': 'រក្សាទុកការផ្លាស់ប្ដូរ',
-    'acct.saved': 'គណនីរបស់អ្នកត្រូវបានរក្សាទុក។',
     'acct.notVerified': 'គណនីរបស់អ្នកមិនទាន់ផ្ទៀងផ្ទាត់ទេ ដូច្នេះព័ត៌មានទំនាក់ទំនងនៅលាក់ពីអ្នកទិញ។',
 
     'prod.owner': 'ម្ចាស់',

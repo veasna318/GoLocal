@@ -6,7 +6,6 @@ const MAX_FARM_PHOTOS = 8;
 
 const form = document.getElementById('account-form');
 const errorBox = document.getElementById('form-error');
-const successBox = document.getElementById('form-success');
 
 // Farm photos already saved, plus new ones just picked.
 let savedPhotos = [];
@@ -221,16 +220,21 @@ async function saveProfile() {
   if (seller) await saveFarmPhotos();
 }
 
+// A seller has a public profile to return to. Anyone else goes home.
+function myProfilePage() {
+  if (auth.user && isSeller()) return `producer.html?id=${auth.user.id}`;
+  return 'index.html';
+}
+
 // Back goes to wherever the person came from, usually their own profile.
 document.getElementById('back-button').addEventListener('click', () => {
   if (history.length > 1) history.back();
-  else location.href = auth.user ? `producer.html?id=${auth.user.id}` : 'index.html';
+  else location.href = myProfilePage();
 });
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   errorBox.hidden = true;
-  successBox.hidden = true;
 
   const button = document.getElementById('save-button');
   button.disabled = true;
@@ -238,17 +242,11 @@ form.addEventListener('submit', async (event) => {
 
   try {
     await saveProfile();
-    await loadSession();
-    await loadFarmPhotos();
-    avatar.file = null;
-    avatar.url = null;
-    cover.file = null;
-    cover.url = null;
-    newPhotos = [];
-    fillForm(auth.profile);
-    successBox.textContent = t('acct.saved');
-    successBox.hidden = false;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Straight to the profile, so the changes are visible without a
+    // second click. Nothing is kept on this page, so there is no need
+    // to put the form back the way it was.
+    location.href = myProfilePage();
+    return;
   } catch (error) {
     showError((error && error.message) ? error.message : t('form.required'));
   }
