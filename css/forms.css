@@ -207,6 +207,11 @@ textarea.input { min-height: 110px; resize: vertical; line-height: 1.6; }
 /* Sourcing request states */
 .status-OPEN { background: var(--green-100); color: var(--green-800); }
 .status-CLOSED { background: var(--cream-200); color: var(--text-soft); }
+/* Review states, shared by applications, promotions and the admin panel */
+.status-PENDING { background: var(--cream-200); color: var(--text-soft); }
+.status-NEEDS_MORE_INFO { background: #fdf0d8; color: #8a6210; }
+.status-APPROVED { background: var(--green-100); color: var(--green-800); }
+.status-REJECTED { background: #fdecec; color: #a3302d; }
 
 .dash-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
 .dash-table th, .dash-table td { padding: 12px 14px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--line); }

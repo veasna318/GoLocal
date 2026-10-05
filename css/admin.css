@@ -80,11 +80,8 @@
 .admin-text { margin-top: 14px; color: var(--text-soft); white-space: pre-line; }
 .admin-text strong { color: var(--text); }
 
-/* Application status colours, matching the product ones in forms.css */
-.status-PENDING { background: var(--cream-200); color: var(--text-soft); }
-.status-NEEDS_MORE_INFO { background: #fdf0d8; color: #8a6210; }
-.status-APPROVED { background: var(--green-100); color: var(--green-800); }
-.status-REJECTED { background: #fdecec; color: #a3302d; }
+/* Account status colours. The review states live in forms.css, because
+   the seller pages show them too. */
 .status-VERIFIED { background: var(--green-100); color: var(--green-800); }
 .status-NOT_APPLIED { background: var(--cream-100); color: var(--text-soft); }
 .status-SUSPENDED { background: #fdecec; color: #a3302d; }

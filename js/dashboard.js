@@ -87,7 +87,7 @@ async function loadMyProducts() {
 
   const { data, error } = await db
     .from('products')
-    .select('id, name, name_km, status, price_min, price_max, currency, unit, product_images(storage_path, is_cover)')
+    .select('id, name, name_km, status, price_min, price_max, currency, unit, boosted_until, product_images(storage_path, is_cover)')
     .eq('owner_id', auth.user.id)
     .order('created_at', { ascending: false });
 
@@ -115,14 +115,24 @@ async function loadMyProducts() {
           const images = p.product_images || [];
           const cover = (images.find((i) => i.is_cover) || images[0] || {}).storage_path;
           const price = formatPrice(p.price_min, p.price_max, p.currency);
+          const boosted = p.boosted_until && new Date(p.boosted_until) > new Date();
+          // Only a published product can be promoted, which is what the
+          // database policy checks as well.
+          const canBoost = p.status === 'PUBLISHED';
           return `
             <tr>
               <td><img src="${esc(imageUrl(cover))}" alt="" onerror="${FALLBACK_IMAGE}"></td>
               <td><strong>${esc(localName(p))}</strong></td>
               <td>${price ? esc(price) + ' / ' + esc(p.unit) : t('card.contactPrice')}</td>
-              <td><span class="status-tag status-${p.status}">${p.status}</span></td>
+              <td>
+                <span class="status-tag status-${p.status}">${p.status}</span>
+                ${boosted ? `<span class="tag tag-gold">${t('dash.boosted')}</span>` : ''}
+              </td>
               <td>
                 <div class="row-actions">
+                  ${canBoost
+                    ? `<a class="btn btn-gold btn-sm" href="boost.html?id=${esc(p.id)}">${t('dash.boost')}</a>`
+                    : ''}
                   <a class="btn btn-outline btn-sm" href="product-form.html?id=${esc(p.id)}">${t('dash.edit')}</a>
                   <button class="btn btn-outline btn-sm delete-button" data-id="${esc(p.id)}">${t('dash.delete')}</button>
                 </div>

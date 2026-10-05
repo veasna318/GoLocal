@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promote a product | GoLocal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/boost.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <section class="page-header">
+    <div class="container">
+      <h1 data-i18n="boost.title">Promote a product</h1>
+      <p><a href="dashboard.html" style="color:var(--gold-400)" data-i18n="form.back">Back to dashboard</a></p>
+    </div>
+  </section>
+
+  <main class="container form-page">
+    <div class="form-card wide-card">
+      <div class="alert alert-error" id="form-error" hidden></div>
+
+      <!-- Shown when the seller already has a request waiting -->
+      <div class="alert alert-info" id="pending-note" hidden></div>
+
+      <form id="boost-form">
+        <h2 class="section-title" data-i18n="boost.whichProduct">Which product</h2>
+
+        <div class="field">
+          <label for="product_id" data-i18n="boost.product">Product</label>
+          <select class="input" id="product_id" name="product_id" required></select>
+          <p class="hint" data-i18n="boost.productHint"></p>
+        </div>
+
+        <h2 class="section-title" data-i18n="boost.howLong">How long</h2>
+        <div class="plan-row" id="plan-row"></div>
+
+        <h2 class="section-title" data-i18n="boost.payNow">Pay with KHQR</h2>
+        <p class="hint" data-i18n="boost.payHint"></p>
+
+        <div class="pay-box">
+          <div class="pay-qr">
+            <img src="assets/images/khqr.png" alt="KHQR" id="khqr-image">
+          </div>
+          <div class="pay-side">
+            <p class="pay-label" data-i18n="boost.amountDue">Amount to pay</p>
+            <p class="pay-amount" id="pay-amount">$3.00</p>
+            <p class="pay-khr" id="pay-khr"></p>
+            <dl class="pay-rows">
+              <div><dt data-i18n="boost.payTo">Pay to</dt><dd id="pay-name">GoLocal</dd></div>
+              <div><dt data-i18n="boost.duration">Duration</dt><dd id="pay-days">7 days</dd></div>
+            </dl>
+            <p class="hint" data-i18n="boost.payNote"></p>
+          </div>
+        </div>
+
+        <h2 class="section-title" data-i18n="boost.proof">Payment screenshot</h2>
+        <p class="hint" data-i18n="boost.proofHint"></p>
+        <div class="photo-grid" id="proof-grid"></div>
+        <input type="file" id="proof-input" accept="image/jpeg,image/png,image/webp" hidden>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-green" id="send-button" data-i18n="boost.send">Send for approval</button>
+        </div>
+      </form>
+
+      <!-- The seller's own boost history -->
+      <section id="history-block" hidden>
+        <h2 class="section-title" data-i18n="boost.history">Your promotion requests</h2>
+        <div id="history-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/currency.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/boost.js"></script>
+</body>
+</html>
