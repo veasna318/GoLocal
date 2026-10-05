@@ -26,9 +26,10 @@
 }
 .board-top .search-icon { display: flex; color: var(--text-soft); }
 
-/* Title band */
+/* Title band. The bottom padding matches the home hero, so the panel
+   below sits the same distance under the province chips. */
 .board-hero {
-  padding: 26px 0 70px;
+  padding: 26px 0 86px;
   background: var(--green-800);
   color: var(--white);
   text-align: center;
@@ -36,12 +37,13 @@
 .board-hero h1 { font-size: var(--h2); font-weight: 600; }
 .board-hero .region-bar { margin-top: 18px; text-align: left; }
 
-.board-main { margin-top: -56px; padding-bottom: 60px; }
+/* The panel inside already lifts itself, so the board adds no more. */
+.board-main { padding-bottom: 60px; }
 
 .section-sub { margin-top: 2px; color: var(--text-soft); font-size: var(--xs); }
 .result-count { color: var(--text-soft); font-size: var(--xs); white-space: nowrap; }
 
 @media (max-width: 760px) {
   .board-top-inner { gap: 10px; }
-  .board-hero { padding: 20px 0 64px; }
+  .board-hero { padding: 20px 0 80px; }
 }
