@@ -57,6 +57,21 @@ const TEXT = {
     'req.contactBusiness': 'Contact this business',
     'req.viewBusiness': 'View business profile',
     'req.viewFull': 'View full photo',
+
+    // Supplier matching
+    'match.heading': 'Suggested suppliers',
+    'match.sub': 'Products that fit this request, ranked by how closely they match.',
+    'match.loading': 'Looking for suppliers...',
+    'match.none': 'No close match yet. Adding a category, quantity or budget to the request helps.',
+    'match.error': 'The suggestions could not be loaded.',
+    'match.scoreHint': 'Match score',
+    'match.whyCategory': 'Same category',
+    'match.whyName': 'Name matches',
+    'match.whyProvince': 'Preferred province',
+    'match.whyQuantity': 'Quantity fits',
+    'match.whyBudget': 'Within budget',
+    'match.whyCertification': 'Certified',
+
     'req.budget': 'Price range',
     'req.budgetOpen': 'Open to offers',
     'req.packaging': 'Packaging',
@@ -525,6 +540,21 @@ const TEXT = {
     'req.contactBusiness': 'ទាក់ទងអាជីវកម្មនេះ',
     'req.viewBusiness': 'មើលប្រវត្តិរូបអាជីវកម្ម',
     'req.viewFull': 'មើលរូបពេញ',
+
+    // Supplier matching
+    'match.heading': 'អ្នកផ្គត់ផ្គង់ដែលស្នើ',
+    'match.sub': 'ផលិតផលដែលសមនឹងសំណើនេះ តម្រៀបតាមកម្រិតនៃភាពស៊ីគ្នា។',
+    'match.loading': 'កំពុងស្វែងរកអ្នកផ្គត់ផ្គង់...',
+    'match.none': 'មិនទាន់មានលទ្ធផលជិតស្និទ្ធទេ។ ការបន្ថែមប្រភេទ បរិមាណ ឬថវិកាទៅសំណើនឹងជួយបាន។',
+    'match.error': 'មិនអាចផ្ទុកការស្នើបានទេ។',
+    'match.scoreHint': 'ពិន្ទុភាពស៊ីគ្នា',
+    'match.whyCategory': 'ប្រភេទដូចគ្នា',
+    'match.whyName': 'ឈ្មោះស៊ីគ្នា',
+    'match.whyProvince': 'ខេត្តដែលចង់បាន',
+    'match.whyQuantity': 'បរិមាណសមរម្យ',
+    'match.whyBudget': 'ក្នុងថវិកា',
+    'match.whyCertification': 'មានវិញ្ញាបនបត្រ',
+
     'req.budget': 'ជួរតម្លៃ',
     'req.budgetOpen': 'អាចចរចាបាន',
     'req.packaging': 'ការវេចខ្ចប់',

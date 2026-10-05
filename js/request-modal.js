@@ -9,6 +9,19 @@ const reqModal = {
   photoIndex: 0,
   rating: null,
   onClose: null,    // the page may want the address bar put back
+  matches: null,    // suppliers suggested for the request on screen
+  matchState: 'idle',
+};
+
+// Why a product was suggested. The database sends short codes so the
+// wording can be shown in either language.
+const MATCH_REASONS = {
+  category: 'match.whyCategory',
+  name: 'match.whyName',
+  province: 'match.whyProvince',
+  quantity: 'match.whyQuantity',
+  budget: 'match.whyBudget',
+  certification: 'match.whyCertification',
 };
 
 function reqRegionName(id) {
@@ -125,7 +138,86 @@ function renderRequestModalLeft() {
           ${icon('flag')}${t('req.report')}
         </button>
       </div>
+
+      <section class="match-block" id="match-block">${matchesHtml()}</section>
     </div>`;
+}
+
+// Suppliers the database picked out for this request.
+function matchesHtml() {
+  if (reqModal.matchState === 'loading') {
+    return `<h3>${t('match.heading')}</h3>
+            <p class="match-note">${t('match.loading')}</p>`;
+  }
+  if (reqModal.matchState === 'error') {
+    return `<h3>${t('match.heading')}</h3>
+            <p class="match-note">${t('match.error')}</p>`;
+  }
+  if (!reqModal.matches || !reqModal.matches.length) {
+    return `<h3>${t('match.heading')}</h3>
+            <p class="match-note">${t('match.none')}</p>`;
+  }
+
+  return `
+    <h3>${t('match.heading')}</h3>
+    <p class="match-note">${t('match.sub')}</p>
+    <div class="match-list">
+      ${reqModal.matches.map((m) => matchRowHtml(m)).join('')}
+    </div>`;
+}
+
+function matchRowHtml(m) {
+  const p = m.card || {};
+  const shown = priceInCurrency(p);
+  const price = formatPrice(shown.min, shown.max, shown.currency);
+  const why = (m.reasons || [])
+    .filter((code) => MATCH_REASONS[code])
+    .map((code) => `<span class="match-why">${t(MATCH_REASONS[code])}</span>`)
+    .join('');
+
+  return `
+    <a class="match-row" href="product.html?id=${esc(p.id)}">
+      <img src="${esc(imageUrl(p.cover_image_path))}" alt="" loading="lazy" onerror="${FALLBACK_IMAGE}">
+      <div class="match-text">
+        <div class="match-title">
+          <strong>${esc(localName(p))}</strong>
+          ${p.seller_verified ? `<span class="verified-dot" title="${t('card.verified')}">${icon('check')}</span>` : ''}
+        </div>
+        <p class="match-seller">${esc(p.seller_name || '')}${
+          p.region_name ? ` ${icon('pin')}${esc(localName(p, 'region_name') || p.region_name)}` : ''}</p>
+        <div class="match-whys">${why}</div>
+      </div>
+      <div class="match-side">
+        <span class="match-price">${price ? esc(price) : t('card.contactPrice')}</span>
+        <span class="match-score" title="${t('match.scoreHint')}">${m.match_score}</span>
+      </div>
+    </a>`;
+}
+
+// Asks the database to score products against this request.
+async function loadRequestMatches(requestId) {
+  reqModal.matchState = 'loading';
+  reqModal.matches = null;
+  redrawMatchBlock();
+
+  const { data, error } = await db.rpc('match_suppliers', {
+    p_request_id: requestId,
+    p_limit: 5,
+  });
+
+  // The modal may have been closed, or another request opened, while the
+  // scoring was running. Only show results for what is still on screen.
+  if (!reqModal.request || reqModal.request.id !== requestId) return;
+
+  reqModal.matchState = error ? 'error' : 'ready';
+  reqModal.matches = error ? null : (data || []);
+  redrawMatchBlock();
+}
+
+function redrawMatchBlock() {
+  const block = document.getElementById('match-block');
+  if (!block) return;
+  block.innerHTML = matchesHtml();
 }
 
 function renderRequestModalSide() {
@@ -179,8 +271,12 @@ function openRequestModal(request, rating) {
   reqModal.photos = request.image_paths || [];
   reqModal.photoIndex = 0;
   reqModal.rating = rating ?? null;
+  reqModal.matches = null;
+  reqModal.matchState = 'loading';
 
   redrawRequestModal();
+  // The modal opens straight away and the suppliers arrive after.
+  loadRequestMatches(request.id);
 
   document.getElementById('req-modal').hidden = false;
   document.body.classList.add('no-scroll');
@@ -195,6 +291,8 @@ function closeRequestModal() {
   if (box) box.hidden = true;
   document.body.classList.remove('no-scroll');
   reqModal.request = null;
+  reqModal.matches = null;
+  reqModal.matchState = 'idle';
   if (typeof reqModal.onClose === 'function') reqModal.onClose();
 }
 
