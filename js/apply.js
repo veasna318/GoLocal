@@ -171,6 +171,28 @@ function showForm(isFix) {
   document.getElementById('submit-button').textContent = t(isFix ? 'apply.resend' : 'apply.send');
 }
 
+// A rejected applicant may send a fresh application. The old documents stay
+// with the old application, so the form starts with none and asks for them
+// again. The written answers are kept, since most of them stay the same.
+function startNewApplication() {
+  KINDS.forEach((kind) => { savedFiles[kind] = []; newFiles[kind] = []; });
+
+  fillForm();
+  prefillFromProfile();
+  showForm(false);
+  KINDS.forEach(renderGrid);
+
+  // The reason for the rejection stays on screen while they fill it in again.
+  const fixNote = document.getElementById('fix-note');
+  if (application && application.admin_note) {
+    fixNote.textContent = `${t('apply.adminNote')} ${application.admin_note}`;
+    fixNote.hidden = false;
+  }
+
+  applyTranslations();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 async function uploadEvidence(applicationId) {
   const rows = [];
   for (const kind of KINDS) {
@@ -280,7 +302,10 @@ async function initApplyPage() {
     showStatus('apply.waitingTitle', 'apply.waitingText', 'wait',
       `<a class="btn btn-outline" href="${afterApplyPage()}">${t('detail.back')}</a>`);
   } else if (status === 'REJECTED') {
-    showStatus('apply.rejectedTitle', 'apply.rejectedText', 'no', '', application.admin_note || '');
+    showStatus('apply.rejectedTitle', 'apply.rejectedText', 'no',
+      `<button type="button" class="btn btn-gold" id="apply-again">${t('apply.applyAgain')}</button>`,
+      application.admin_note || '');
+    document.getElementById('apply-again').addEventListener('click', startNewApplication);
   } else {
     fillForm();
     prefillFromProfile();

@@ -406,7 +406,8 @@ const TEXT = {
     'apply.verifiedTitle': 'Your account is verified',
     'apply.verifiedText': 'Buyers can see your Verified badge and your contact details.',
     'apply.rejectedTitle': 'Your application was not approved',
-    'apply.rejectedText': 'Please contact an administrator if you think this is a mistake.',
+    'apply.rejectedText': 'You can send a new application, or contact an administrator if you think this is a mistake.',
+    'apply.applyAgain': 'Apply again',
     'apply.pleaseFix': 'An administrator needs more information before approving your account.',
     'apply.adminNote': 'Note from the administrator:',
 
@@ -872,7 +873,8 @@ const TEXT = {
     'apply.verifiedTitle': 'គណនីរបស់អ្នកបានផ្ទៀងផ្ទាត់',
     'apply.verifiedText': 'អ្នកទិញឃើញសញ្ញាបានផ្ទៀងផ្ទាត់ និងព័ត៌មានទំនាក់ទំនងរបស់អ្នក។',
     'apply.rejectedTitle': 'ពាក្យសុំរបស់អ្នកមិនបានអនុម័ត',
-    'apply.rejectedText': 'សូមទាក់ទងអ្នកគ្រប់គ្រង ប្រសិនបើអ្នកគិតថានេះជាកំហុស។',
+    'apply.rejectedText': 'អ្នកអាចផ្ញើពាក្យសុំថ្មី ឬទាក់ទងអ្នកគ្រប់គ្រង ប្រសិនបើអ្នកគិតថានេះជាកំហុស។',
+    'apply.applyAgain': 'ដាក់ពាក្យម្ដងទៀត',
     'apply.pleaseFix': 'អ្នកគ្រប់គ្រងត្រូវការព័ត៌មានបន្ថែមមុនពេលអនុម័តគណនីរបស់អ្នក។',
     'apply.adminNote': 'កំណត់សម្គាល់ពីអ្នកគ្រប់គ្រង៖',
 
