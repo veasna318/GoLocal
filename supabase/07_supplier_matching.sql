@@ -80,10 +80,16 @@ as $$
       select
         c.*,
         -- Only when the buyer set a budget and the product shows a price.
+        -- A product with one price has it stored as the minimum and no
+        -- maximum, so a missing end of the range means the other end, not
+        -- "no limit". Reading it as no limit let cheap goods pass a high
+        -- budget.
         coalesce(c.budget_low, c.budget_high) is not null
           and coalesce(c.price_low, c.price_high) is not null
-          and (c.budget_high is null or c.price_low is null or c.price_low <= c.budget_high)
-          and (c.budget_low is null or c.price_high is null or c.price_high >= c.budget_low)
+          and (c.budget_high is null
+               or coalesce(c.price_low, c.price_high) <= c.budget_high)
+          and (c.budget_low is null
+               or coalesce(c.price_high, c.price_low) >= c.budget_low)
           as budget_fits
       from candidate c
     ) c
