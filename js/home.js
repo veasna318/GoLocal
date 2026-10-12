@@ -12,6 +12,7 @@ const home = {
   requests: [],
   sellerRatings: {},
   producers: [],
+  sampleProducers: false,
   spotIndex: 0,
   regionCounts: {},
 };
@@ -263,6 +264,7 @@ async function loadProducers() {
 
   if (!data || data.length === 0) {
     home.producers = typeof SAMPLE_PRODUCERS !== 'undefined' ? SAMPLE_PRODUCERS : [];
+    home.sampleProducers = true;
   } else {
     const ids = data.map((p) => p.id);
     const [ratings, products] = await Promise.all([
@@ -274,8 +276,10 @@ async function loadProducers() {
       rating: (ratings.data || []).find((r) => r.seller_id === p.id)?.average_rating,
       product_count: (products.data || []).filter((x) => x.seller_id === p.id).length,
     }));
+    home.sampleProducers = false;
   }
   renderSpotlight();
+  renderStoryCards();
 }
 
 // The farm photo tells the story better than the profile banner,
@@ -284,6 +288,40 @@ function spotlightPhoto(p) {
   const photos = (p.seller_photos || []).slice()
     .sort((a, b) => (a.display_order || 0) - (b.display_order || 0));
   return (photos[0] && photos[0].storage_path) || p.cover_path;
+}
+
+// The card is small, so only the opening of the farm story fits.
+function storyLine(text, limit = 110) {
+  const clean = (text || '').trim();
+  if (clean.length <= limit) return clean;
+  const cut = clean.lastIndexOf(' ', limit);
+  return clean.slice(0, cut > 40 ? cut : limit) + '...';
+}
+
+// The hero cards show the same verified producers as the spotlight below,
+// so the page stops advertising farms that are not on the site. The markup
+// already in the page stays until the first real producer arrives.
+function renderStoryCards() {
+  const track = document.querySelector('.story-track');
+  if (!track || !home.producers.length) return;
+
+  track.innerHTML = home.producers.slice(0, 6).map((p) => {
+    const name = p.business_name || p.display_name || '';
+    const place = p.region_name || regionName(p.region_id);
+    const letter = name.trim().charAt(0).toUpperCase();
+    // A sample producer has no page to open, so it is not a link.
+    const tag = home.sampleProducers ? 'div' : 'a';
+    const link = home.sampleProducers ? '' : ` href="producer.html?id=${esc(p.id)}"`;
+    return `
+      <${tag} class="story-card"${link}
+         style="background-image:url('${esc(imageUrl(spotlightPhoto(p)))}')">
+        <span class="story-location">${icon('pin')}${esc(place)}</span>
+        <div class="story-content">
+          <div class="story-author"><span class="story-avatar">${esc(letter)}</span>${esc(name)}</div>
+          <p>${esc(storyLine(p.farm_story))}</p>
+        </div>
+      </${tag}>`;
+  }).join('');
 }
 
 function renderSpotlight() {
@@ -382,6 +420,7 @@ function setupCarousel() {
 
 function rerenderForLanguage() {
   renderStoryRegions();
+  renderStoryCards();
   renderCategories();
   renderRegionChips();
   renderProducts();
