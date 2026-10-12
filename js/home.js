@@ -303,7 +303,16 @@ function storyLine(text, limit = 110) {
 // already in the page stays until the first real producer arrives.
 function renderStoryCards() {
   const track = document.querySelector('.story-track');
-  if (!track || !home.producers.length) return;
+  if (!track) return;
+  const carousel = track.closest('.story-carousel');
+
+  // With no producers there is nothing to show, so the loading
+  // placeholders are taken away rather than left shimmering.
+  if (!home.producers.length) {
+    if (carousel) carousel.hidden = true;
+    return;
+  }
+  if (carousel) carousel.hidden = false;
 
   track.innerHTML = home.producers.slice(0, 6).map((p) => {
     const name = p.business_name || p.display_name || '';
@@ -401,7 +410,12 @@ function renderProvinces() {
 
 function setupCarousel() {
   const track = document.querySelector('.story-track');
-  const step = () => track.querySelector('.story-card').offsetWidth + 8;
+  // Measures whatever is in the track, since the loading placeholders
+  // are there before the first card arrives.
+  const step = () => {
+    const card = track.querySelector('.story-card') || track.firstElementChild;
+    return card ? card.offsetWidth + 8 : 0;
+  };
   const move = (dir) => {
     const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
     if (dir > 0 && atEnd) track.scrollTo({ left: 0, behavior: 'smooth' });

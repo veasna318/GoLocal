@@ -26,6 +26,9 @@
 }
 .story-track::-webkit-scrollbar { display: none; }
 
+/* Keeps the carousel its right size while the producers load. */
+.skeleton-story { aspect-ratio: 2.2 / 1; }
+
 .story-card {
   position: relative;
   display: flex;
@@ -280,7 +283,7 @@
 
 @media (max-width: 900px) {
   .story-track { grid-auto-columns: calc((100% - 8px) / 2); }
-  .story-card { aspect-ratio: 16 / 10; }
+  .story-card, .skeleton-story { aspect-ratio: 16 / 10; }
   .product-grid { grid-template-columns: repeat(3, 1fr); }
   .product-grid > :nth-child(4) { display: none; }
   .spotlight-inner { grid-template-columns: 1fr; gap: 32px; }
@@ -292,7 +295,7 @@
 @media (max-width: 600px) {
   .hero { padding-top: 16px; }
   .story-track { grid-auto-columns: 88%; }
-  .story-card { aspect-ratio: 16 / 10; }
+  .story-card, .skeleton-story { aspect-ratio: 16 / 10; }
   .carousel-arrow { display: none; }
   .category-row { grid-auto-columns: 96px; }
   .region-bar { border-radius: var(--radius); }
